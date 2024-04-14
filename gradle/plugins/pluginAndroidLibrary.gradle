@@ -1,0 +1,1 @@
+apply from: file("$rootDir/gradle/plugins/pluginAndroid.gradle")

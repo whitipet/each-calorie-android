@@ -1,0 +1,48 @@
+buildscript {
+	apply from: file("$rootDir/projectConfig.gradle")
+
+	ext.versionCatalog = extensions.getByType(VersionCatalogsExtension).named("dep")
+
+	repositories {
+		google()
+		mavenCentral()
+		maven {
+			name = "r8"
+			url = "https://storage.googleapis.com/r8-releases/raw"
+			content { includeGroup("com.android.tools") }
+		}
+	}
+
+	dependencies {
+		classpath dep.plugins.r8.get().toString()
+		classpath dep.plugins.android.get().toString()
+		classpath dep.plugins.kotlin.get().toString()
+	}
+
+	def plugins = versionCatalog
+			.getPluginAliases()
+			.collect { versionCatalog.findPlugin(it).get().get() }
+			.collect { "${it.pluginId}:${it.version}" } //TODO: Resolve version
+	configurations.configureEach { resolutionStrategy.forcedModules = plugins }
+}
+
+subprojects {
+	repositories {
+		google()
+		mavenCentral()
+	}
+
+	def libs = versionCatalog
+			.getLibraryAliases()
+			.collect { versionCatalog.findLibrary(it).get().get() }
+			.collect { "${it.group}:${it.name}:${it.version}" } //TODO: Resolve version
+	configurations.configureEach { config -> resolutionStrategy.forcedModules = libs }
+}
+
+apply from: file("$rootDir/gradle/plugins/configureSubprojects.gradle")
+configureSubprojects()
+
+if (hasProperty("buildScan")) buildScan {
+	termsOfServiceUrl = "https://gradle.com/terms-of-service"
+	termsOfServiceAgree = "yes"
+}

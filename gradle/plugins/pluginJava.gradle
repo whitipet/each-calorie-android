@@ -1,0 +1,6 @@
+java {
+	toolchain {
+		languageVersion = config.javaVersion
+		vendor = JvmVendorSpec.ADOPTIUM
+	}
+}

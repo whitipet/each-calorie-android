@@ -1,0 +1,14 @@
+plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0" } //https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
+
+rootProject.name = "Each Calorie"
+
+dependencyResolutionManagement.versionCatalogs { dep.from(files("dependencies.toml")) }
+
+fileTree(".")
+		.matching {
+			exclude "**/src/**", "**/build/**", "**/.*", "**/gradle", "build.gradle"
+			include "**/build.gradle"
+		}
+		.each {
+			include ":${rootProject.projectDir.relativePath(it.parentFile).replace('/', ':')}"
+		}
