@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-	implementation dep.androidx.activity
+	implementation dep.androidx.activity.compose
 
 	implementation dep.androidx.compose.ui
 	implementation dep.androidx.compose.material3
