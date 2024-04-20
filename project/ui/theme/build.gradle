@@ -1,0 +1,15 @@
+plugins {
+	id "com.android.library"
+	id "kotlin-android"
+}
+
+android {
+	buildFeatures.compose = true
+	composeOptions.kotlinCompilerExtensionVersion = dep.versions.androidx.compose.compiler.get()
+}
+
+dependencies {
+	implementation dep.androidx.compose.foundation.android
+	implementation dep.androidx.compose.ui.android
+	implementation dep.androidx.compose.material3.android
+}

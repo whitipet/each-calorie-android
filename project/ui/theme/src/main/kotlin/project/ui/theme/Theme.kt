@@ -1,4 +1,4 @@
-package app.ui.theme
+package project.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-internal fun Theme(
+fun Theme(
 	darkTheme: Boolean = isSystemInDarkTheme(),
 	content: @Composable () -> Unit,
 ) = MaterialTheme(

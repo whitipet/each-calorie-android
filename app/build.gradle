@@ -5,11 +5,12 @@ plugins {
 
 android {
 	buildFeatures.compose = true
-
 	composeOptions.kotlinCompilerExtensionVersion = dep.versions.androidx.compose.compiler.get()
 }
 
 dependencies {
+	implementation project(":project:ui:theme")
+
 	implementation dep.androidx.activity.compose
 
 	implementation dep.androidx.compose.ui
