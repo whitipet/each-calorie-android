@@ -24,6 +24,8 @@ androidx-lifecycle = "2.8.0-beta01"           # https://mvnrepository.com/artifa
 androidx-savedState = "1.2.1"                 # https://mvnrepository.com/artifact/androidx.savedstate/savedstate                            https://developer.android.com/jetpack/androidx/releases/savedstate
 androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifact/androidx.versionedparcelable/versionedparcelable          https://developer.android.com/jetpack/androidx/releases/versionedparcelable
 
+google-material = "1.13.0-alpha01"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
+
 jetBrainsAnnotations = "24.1.0"               # https://mvnrepository.com/artifact/org.jetbrains/annotations                                 https://github.com/JetBrains/java-annotations
 
 [plugins]
@@ -89,5 +91,7 @@ androidx-lifecycle-viewModelSavedState = { module = "androidx.lifecycle:lifecycl
 androidx-savedState = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedState" }
 androidx-savedState-ktx = { module = "androidx.savedstate:savedstate-ktx", version.ref = "androidx-savedState" }
 androidx-versionedParcelable = { module = "androidx.versionedparcelable:versionedparcelable", version.ref = "androidx-versionedParcelable" }
+
+google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 
 jetBrainsAnnotations = { module = "org.jetbrains:annotations", version.ref = "jetBrainsAnnotations" }

@@ -11,6 +11,8 @@ android {
 dependencies {
 	implementation project(":project:ui:theme")
 
+	implementation dep.google.material
+
 	implementation dep.androidx.activity.compose
 
 	implementation dep.androidx.compose.ui
