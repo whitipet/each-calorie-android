@@ -1,5 +1,5 @@
 plugins {
-	id "com.android.application"
+	id "com.android.library"
 	id "kotlin-android"
 }
 
@@ -10,13 +10,6 @@ android {
 
 dependencies {
 	implementation project(":project:ui:theme")
-
-	implementation project(":feature:stats")
-	implementation project(":feature:add-consumption")
-
-	implementation dep.google.material
-
-	implementation dep.androidx.activity.compose
 
 	implementation dep.androidx.compose.ui
 	implementation dep.androidx.compose.material3

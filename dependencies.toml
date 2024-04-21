@@ -21,6 +21,7 @@ androidx-compose-compiler = "1.5.12"          # https://mvnrepository.com/artifa
 androidx-compose-ui = "1.7.0-alpha07"         # https://mvnrepository.com/artifact/androidx.compose.ui/ui                                    https://developer.android.com/jetpack/androidx/releases/compose-ui
 androidx-core = "1.13.0"                      # https://mvnrepository.com/artifact/androidx.core/core                                        https://developer.android.com/jetpack/androidx/releases/core
 androidx-lifecycle = "2.8.0-beta01"           # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-common                       https://developer.android.com/jetpack/androidx/releases/lifecycle
+androidx-navigation = "2.8.0-alpha07"         # https://mvnrepository.com/artifact/androidx.navigation/navigation-common                     https://developer.android.com/jetpack/androidx/releases/navigation
 androidx-savedState = "1.2.1"                 # https://mvnrepository.com/artifact/androidx.savedstate/savedstate                            https://developer.android.com/jetpack/androidx/releases/savedstate
 androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifact/androidx.versionedparcelable/versionedparcelable          https://developer.android.com/jetpack/androidx/releases/versionedparcelable
 
@@ -88,6 +89,7 @@ androidx-lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmode
 androidx-lifecycle-viewModel-android = { module = "androidx.lifecycle:lifecycle-viewmodel-android", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewModelSavedState = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-savedState = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedState" }
 androidx-savedState-ktx = { module = "androidx.savedstate:savedstate-ktx", version.ref = "androidx-savedState" }
 androidx-versionedParcelable = { module = "androidx.versionedparcelable:versionedparcelable", version.ref = "androidx-versionedParcelable" }
