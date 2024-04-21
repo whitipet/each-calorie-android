@@ -1,7 +1,7 @@
 [versions]
 agp = "8.3.2"                                 # https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google                https://developer.android.com/studio/releases/gradle-plugin
-r8 = "8.4.23"                                 # https://r8.googlesource.com/r8/+/refs/heads/8.4                                              https://r8.googlesource.com/r8/
-bundleTool = "1.15.6"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
+r8 = "8.4.24"                                 # https://r8.googlesource.com/r8/+/refs/heads/8.4                                              https://r8.googlesource.com/r8/
+bundleTool = "1.16.0"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
 
 kotlin = "1.9.23"                             # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases/
 
@@ -30,9 +30,12 @@ google-material = "1.13.0-alpha01"            # https://mvnrepository.com/artifa
 jetBrainsAnnotations = "24.1.0"               # https://mvnrepository.com/artifact/org.jetbrains/annotations                                 https://github.com/JetBrains/java-annotations
 
 [plugins]
+#noinspection SimilarGradleDependency
 android = { id = "com.android.tools.build:gradle", version.ref = "agp" }
+#noinspection SimilarGradleDependency
 r8 = { id = "com.android.tools:r8", version.ref = "r8" }
 kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+#noinspection SimilarGradleDependency
 bundleTool = { id = "com.android.tools.build:bundletool", version.ref = "bundleTool" }
 
 [libraries]
