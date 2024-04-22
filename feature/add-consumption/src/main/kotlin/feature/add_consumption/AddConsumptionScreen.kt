@@ -26,7 +26,6 @@ internal fun AddConsumptionScreen() {
 				style = MaterialTheme.typography.headlineLarge
 			)
 		}
-
 	}
 }
 

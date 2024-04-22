@@ -19,10 +19,8 @@ dependencies {
 	implementation dep.androidx.activity.compose
 
 	implementation dep.androidx.compose.ui
-	implementation dep.androidx.compose.material3
-
-	debugImplementation dep.androidx.compose.ui.tooling
-	implementation dep.androidx.compose.ui.tooling.preview
 
 	implementation dep.androidx.navigation.compose
+
+	implementation dep.koin.android
 }

@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<application
+		android:name=".Application"
 		android:allowBackup="true"
 		android:enableOnBackInvokedCallback="true"
 		android:label="${appName}"

@@ -29,7 +29,7 @@ private fun App() {
 		startDestination = StatsRoute,
 	) {
 		statsScreen(
-			onNavigateToAdd = {
+			onAddAction = {
 				navController.navigateToAddConsumption()
 			},
 		)

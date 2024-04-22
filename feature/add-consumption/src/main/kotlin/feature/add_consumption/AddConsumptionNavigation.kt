@@ -6,10 +6,8 @@ import androidx.navigation.compose.composable
 
 const val AddConsumptionRoute = "add_consumption"
 
-fun NavGraphBuilder.addConsumptionScreen() {
-	composable(AddConsumptionRoute) {
-		AddConsumptionScreen()
-	}
+fun NavGraphBuilder.addConsumptionScreen() = composable(AddConsumptionRoute) {
+	AddConsumptionScreen()
 }
 
-fun NavController.navigateToAddConsumption() = this.navigate(AddConsumptionRoute)
+fun NavController.navigateToAddConsumption() = navigate(AddConsumptionRoute)

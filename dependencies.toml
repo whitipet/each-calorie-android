@@ -27,6 +27,7 @@ androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifa
 
 google-material = "1.13.0-alpha01"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
 
+koin = "3.6.0-Beta2"                          # https://mvnrepository.com/artifact/io.insert-koin/koin-core                                  https://github.com/InsertKoinIO/koin
 jetBrainsAnnotations = "24.1.0"               # https://mvnrepository.com/artifact/org.jetbrains/annotations                                 https://github.com/JetBrains/java-annotations
 
 [plugins]
@@ -99,4 +100,7 @@ androidx-versionedParcelable = { module = "androidx.versionedparcelable:versione
 
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin" }
 jetBrainsAnnotations = { module = "org.jetbrains:annotations", version.ref = "jetBrainsAnnotations" }
