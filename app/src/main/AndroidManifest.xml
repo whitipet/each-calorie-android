@@ -6,6 +6,7 @@
 		android:name=".Application"
 		android:allowBackup="true"
 		android:enableOnBackInvokedCallback="true"
+		android:hasFragileUserData="true"
 		android:label="${appName}"
 		android:theme="@style/Theme"
 		tools:ignore="UnusedAttribute">
