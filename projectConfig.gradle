@@ -8,7 +8,7 @@ ext.config = [
 				patch: 0,
 		], // https://semver.org
 
-		minSdkVersion             : 24,
+		minSdkVersion             : 28,
 		compileSdkVersion         : 34,
 		compileSdkExtensionVersion: 11,
 		targetSdkVersion          : 34,
