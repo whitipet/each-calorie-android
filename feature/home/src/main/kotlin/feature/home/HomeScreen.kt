@@ -1,5 +1,7 @@
 package feature.home
 
+import android.os.Build
+import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -164,6 +166,8 @@ private fun ProgressBar(progress: Float) {
 		}
 	}
 
-	Arcs(modifier = Modifier.blur(80.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded))
+	if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
+		Arcs(modifier = Modifier.blur(80.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded))
+	}
 	Arcs()
 }
