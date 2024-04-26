@@ -1,7 +1,7 @@
 package app
 
 import android.app.Application
-import feature.stats.statsModule
+import feature.home.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -12,7 +12,7 @@ class Application : Application() {
 		startKoin {
 			androidContext(this@Application)
 			modules(
-				statsModule,
+				homeModule,
 			)
 		}
 	}

@@ -1,8 +1,8 @@
-package feature.stats
+package feature.home
 
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
-val statsModule = module {
-	viewModelOf(::StatsViewModel)
+val homeModule = module {
+	viewModelOf(::HomeViewModel)
 }

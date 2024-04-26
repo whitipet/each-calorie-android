@@ -9,7 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import feature.add_consumption.addConsumptionScreen
 import feature.add_consumption.navigateToAddConsumption
-import feature.stats.StatsRoute
+import feature.home.HomeRoute
+import feature.home.homeScreen
 import feature.stats.statsScreen
 import project.ui.theme.Theme
 
@@ -26,14 +27,12 @@ private fun App() {
 	val navController = rememberNavController()
 	NavHost(
 		navController = navController,
-		startDestination = StatsRoute,
+		startDestination = HomeRoute,
 	) {
-		statsScreen(
-			onAddAction = {
-				navController.navigateToAddConsumption()
-			},
+		homeScreen(
+			onAddAction = { navController.navigateToAddConsumption() },
 		)
-
 		addConsumptionScreen()
+		statsScreen()
 	}
 }
