@@ -103,4 +103,5 @@ google-material = { module = "com.google.android.material:material", version.ref
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 jetBrainsAnnotations = { module = "org.jetbrains:annotations", version.ref = "jetBrainsAnnotations" }

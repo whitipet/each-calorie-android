@@ -11,6 +11,8 @@ android {
 dependencies {
 	implementation project(":project:ui:theme")
 
+	implementation project(":data")
+
 	implementation dep.androidx.compose.ui
 	implementation dep.androidx.compose.material3
 	debugImplementation dep.androidx.compose.ui.tooling

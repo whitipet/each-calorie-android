@@ -1,0 +1,11 @@
+plugins {
+	id "kotlin"
+}
+
+dependencies {
+	api project(":project:entity")
+
+	implementation dep.kotlinx.coroutines.core
+
+	implementation dep.koin.core
+}

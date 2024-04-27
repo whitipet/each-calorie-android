@@ -11,6 +11,8 @@ android {
 dependencies {
 	implementation project(":project:ui:theme")
 
+	implementation project(":data")
+
 	implementation project(":feature:home")
 	implementation project(":feature:add-consumption")
 	implementation project(":feature:stats")

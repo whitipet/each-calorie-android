@@ -3,9 +3,12 @@ package feature.home
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,10 +22,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -42,24 +44,29 @@ import project.ui.theme.Theme
 @Composable
 private fun HomeScreenPreview() = Theme {
 	HomeScreen(
-		onAddAction = {}
+		state = remember { mutableStateOf(HomeUIState(600, 2500)) },
+		onAddAction = {},
+		onUpdateGoalAction = {},
+		onUpdateCurrentAction = {}
 	)
 }
 
 @Composable
 internal fun HomeScreen(
+	state: State<HomeUIState>,
 	onAddAction: () -> Unit,
+	onUpdateGoalAction: (calories: Int) -> Unit,
+	onUpdateCurrentAction: (calories: Int) -> Unit,
 ) {
-	var current: Int by rememberSaveable { mutableIntStateOf(100) }
-	val goal: Int = 2500
+	val current: Int = state.value.current
+	val goal: Int = state.value.goal
 
 	Scaffold(
 		floatingActionButtonPosition = FabPosition.Center,
 		floatingActionButton = {
-			FloatingActionButton(onClick = {
-				current += 100
-//				onAddAction()
-			}) {
+			FloatingActionButton(
+				onClick = { onAddAction() }
+			) {
 				Icon(Icons.Filled.Add, "Add")
 			}
 		}
@@ -73,20 +80,34 @@ internal fun HomeScreen(
 				.padding(top = 56.dp, bottom = fabSizeWithOffset),
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
-			CaloriesProgress(current = current, goal = goal)
+			CaloriesProgress(
+				current = current,
+				goal = goal,
+				onCurrentLongClickAction = { onUpdateGoalAction(current) },
+				onGoalLongClickAction = { onUpdateCurrentAction(goal) }
+			)
 		}
 	}
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun CaloriesProgress(current: Int, goal: Int) {
+private fun CaloriesProgress(
+	current: Int,
+	goal: Int,
+	onCurrentLongClickAction: () -> Unit,
+	onGoalLongClickAction: () -> Unit,
+) {
 	Box(
 		modifier = Modifier
 			.aspectRatio(1f)
 			.fillMaxWidth(),
 		contentAlignment = Alignment.Center
 	) {
-		ProgressBar(current.toFloat() / goal.toFloat())
+		ProgressBar(
+			if (goal <= 0 && current <= 0) 0.0f
+			else current.toFloat() / goal.toFloat()
+		)
 
 		AutoSizeText(
 			text = current.toString(),
@@ -101,7 +122,7 @@ private fun CaloriesProgress(current: Int, goal: Int) {
 
 		Row(
 			modifier = Modifier
-				.fillMaxWidth(0.75f)
+				.fillMaxWidth()
 				.fillMaxHeight(0.1f)
 				.align(Alignment.BottomCenter),
 			verticalAlignment = Alignment.CenterVertically
@@ -109,18 +130,22 @@ private fun CaloriesProgress(current: Int, goal: Int) {
 			val delta = current - goal
 			AutoSizeText(
 				text = "${if (delta > 0) "+" else ""}${current - goal}",
-				modifier = Modifier.weight(1f),
+				modifier = Modifier
+					.weight(1f)
+					.combinedClickable(onLongClick = { onCurrentLongClickAction() }, onClick = {}),
 				maxLines = 1,
 				softWrap = false,
-				alignment = Alignment.CenterStart,
+				alignment = Alignment.Center,
 			)
-
+			Spacer(modifier = Modifier.weight(0.4f))
 			AutoSizeText(
 				text = goal.toString(),
-				modifier = Modifier.weight(1f),
+				modifier = Modifier
+					.weight(1f)
+					.combinedClickable(onLongClick = { onGoalLongClickAction() }, onClick = {}),
 				maxLines = 1,
 				softWrap = false,
-				alignment = Alignment.CenterEnd,
+				alignment = Alignment.Center,
 			)
 		}
 	}
