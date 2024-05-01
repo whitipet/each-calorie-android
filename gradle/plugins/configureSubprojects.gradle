@@ -10,6 +10,9 @@ private def configureProjectAccordingToPlugin(Project project, Plugin plugin) {
 		case "org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper":
 			project.apply from: file("$pluginsDir/pluginKotlinAndroid.gradle")
 			break
+		case "org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradleSubplugin":
+			project.apply from: file("$pluginsDir/pluginCompose.gradle")
+			break
 		case "com.android.build.gradle.LibraryPlugin":
 			project.apply from: file("$pluginsDir/pluginAndroidLibrary.gradle")
 			break
