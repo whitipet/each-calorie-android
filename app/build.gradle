@@ -1,11 +1,11 @@
 plugins {
 	id "com.android.application"
 	id "kotlin-android"
+	id "org.jetbrains.kotlin.plugin.compose"
 }
 
 android {
 	buildFeatures.compose = true
-	composeOptions.kotlinCompilerExtensionVersion = dep.versions.androidx.compose.compiler.get()
 }
 
 dependencies {
