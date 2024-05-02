@@ -43,7 +43,15 @@ subprojects {
 		mavenCentral()
 	}
 
-	configurations.configureEach { config -> resolutionStrategy.forcedModules = libs }
+	configurations.configureEach { config ->
+		resolutionStrategy.forcedModules = libs
+
+		config.exclude(group: "androidx.cardview")
+		config.exclude(group: "androidx.cursoradapter")
+		config.exclude(group: "androidx.legacy")
+		config.exclude(group: "androidx.viewpager")
+		config.exclude(group: "androidx.viewpager2")
+	}
 }
 
 apply from: file("$rootDir/gradle/plugins/configureSubprojects.gradle")

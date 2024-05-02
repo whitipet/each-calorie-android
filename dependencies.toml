@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.0-alpha07"                         # https://mvnrepository.com/artifact/com.android.tools.build/gradle                            https://developer.android.com/studio/releases/gradle-plugin
-r8 = "8.6.0-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
+r8 = "8.6.1-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
 bundleTool = "1.16.0"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
 
 kotlin = "2.0.0-RC2"                          # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases
@@ -8,20 +8,29 @@ kotlin = "2.0.0-RC2"                          # https://mvnrepository.com/artifa
 kotlinx-coroutines = "1.8.1-Beta"             # https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core             https://github.com/Kotlin/kotlinx.coroutines/releases
 
 androidx-activity = "1.9.0"                   # https://mvnrepository.com/artifact/androidx.activity/activity                                https://developer.android.com/jetpack/androidx/releases/activity
-androidx-annotation = "1.8.0-beta02"          # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
+androidx-annotation = "1.8.0-rc01"            # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
 androidx-annotationExp = "1.4.1"              # https://mvnrepository.com/artifact/androidx.annotation/annotation-experimental               https://developer.android.com/jetpack/androidx/releases/annotation
+androidx-appCompat = "1.7.0-beta01"           # https://mvnrepository.com/artifact/androidx.appcompat/appcompat                              https://developer.android.com/jetpack/androidx/releases/appcompat
 androidx-arch = "2.2.0"                       # https://mvnrepository.com/artifact/androidx.arch.core/core-common                            https://developer.android.com/jetpack/androidx/releases/arch
 androidx-collection = "1.4.0"                 # https://mvnrepository.com/artifact/androidx.collection/collection                            https://developer.android.com/jetpack/androidx/releases/collection
-androidx-compose-animation = "1.7.0-alpha07"  # https://mvnrepository.com/artifact/androidx.compose.animation/animation                      https://developer.android.com/jetpack/androidx/releases/compose-animation
-androidx-compose-foundation = "1.7.0-alpha07" # https://mvnrepository.com/artifact/androidx.compose.foundation/foundation                    https://developer.android.com/jetpack/androidx/releases/compose-foundation
-androidx-compose-material3 = "1.3.0-alpha05"  # https://mvnrepository.com/artifact/androidx.compose.material3/material3                      https://developer.android.com/jetpack/androidx/releases/compose-material3
-androidx-compose-material = "1.7.0-alpha07"   # https://mvnrepository.com/artifact/androidx.compose.material/material                        https://developer.android.com/jetpack/androidx/releases/compose-material
-androidx-compose-runtime = "1.7.0-alpha07"    # https://mvnrepository.com/artifact/androidx.compose.runtime/runtime                          https://developer.android.com/jetpack/androidx/releases/compose-runtime
-androidx-compose-ui = "1.7.0-alpha07"         # https://mvnrepository.com/artifact/androidx.compose.ui/ui                                    https://developer.android.com/jetpack/androidx/releases/compose-ui
-androidx-core = "1.13.0"                      # https://mvnrepository.com/artifact/androidx.core/core                                        https://developer.android.com/jetpack/androidx/releases/core
-androidx-lifecycle = "2.8.0-beta01"           # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-common                       https://developer.android.com/jetpack/androidx/releases/lifecycle
-androidx-navigation = "2.8.0-alpha07"         # https://mvnrepository.com/artifact/androidx.navigation/navigation-common                     https://developer.android.com/jetpack/androidx/releases/navigation
+androidx-compose-animation = "1.7.0-alpha08"  # https://mvnrepository.com/artifact/androidx.compose.animation/animation                      https://developer.android.com/jetpack/androidx/releases/compose-animation
+androidx-compose-foundation = "1.7.0-alpha08" # https://mvnrepository.com/artifact/androidx.compose.foundation/foundation                    https://developer.android.com/jetpack/androidx/releases/compose-foundation
+androidx-compose-material3 = "1.3.0-alpha06"  # https://mvnrepository.com/artifact/androidx.compose.material3/material3                      https://developer.android.com/jetpack/androidx/releases/compose-material3
+androidx-compose-material = "1.7.0-alpha08"   # https://mvnrepository.com/artifact/androidx.compose.material/material                        https://developer.android.com/jetpack/androidx/releases/compose-material
+androidx-compose-runtime = "1.7.0-alpha08"    # https://mvnrepository.com/artifact/androidx.compose.runtime/runtime                          https://developer.android.com/jetpack/androidx/releases/compose-runtime
+androidx-compose-ui = "1.7.0-alpha08"         # https://mvnrepository.com/artifact/androidx.compose.ui/ui                                    https://developer.android.com/jetpack/androidx/releases/compose-ui
+androidx-constraintLayout = "2.2.0-alpha11"   # https://mvnrepository.com/artifact/androidx.constraintlayout/constraintlayout                https://developer.android.com/jetpack/androidx/releases/constraintlayout
+androidx-coordinatorLayout = "1.3.0-alpha02"  # https://mvnrepository.com/artifact/androidx.coordinatorlayout/coordinatorlayout              https://developer.android.com/jetpack/androidx/releases/coordinatorlayout
+androidx-core = "1.14.0-alpha01"              # https://mvnrepository.com/artifact/androidx.core/core                                        https://developer.android.com/jetpack/androidx/releases/core
+androidx-customView = "1.2.0-alpha02"         # https://mvnrepository.com/artifact/androidx.customview/customview                            https://developer.android.com/jetpack/androidx/releases/customview
+androidx-drawerLayout = "1.2.0"               # https://mvnrepository.com/artifact/androidx.drawerlayout/drawerlayout                        https://developer.android.com/jetpack/androidx/releases/drawerlayout
+androidx-fragment = "1.8.0-alpha02"           # https://mvnrepository.com/artifact/androidx.fragment/fragment                                https://developer.android.com/jetpack/androidx/releases/fragment
+androidx-lifecycle = "2.8.0-rc01"             # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-common                       https://developer.android.com/jetpack/androidx/releases/lifecycle
+androidx-loader = "1.1.0"                     # https://mvnrepository.com/artifact/androidx.loader/loader                                    https://developer.android.com/jetpack/androidx/releases/loader
+androidx-localBroadcastManager = "1.1.0"      # https://mvnrepository.com/artifact/androidx.localbroadcastmanager/localbroadcastmanager      https://developer.android.com/jetpack/androidx/releases/localbroadcastmanager
+androidx-navigation = "2.8.0-alpha08"         # https://mvnrepository.com/artifact/androidx.navigation/navigation-common                     https://developer.android.com/jetpack/androidx/releases/navigation
 androidx-savedState = "1.2.1"                 # https://mvnrepository.com/artifact/androidx.savedstate/savedstate                            https://developer.android.com/jetpack/androidx/releases/savedstate
+androidx-vectorDrawable = "1.2.0"             # https://mvnrepository.com/artifact/androidx.vectordrawable/vectordrawable                    https://developer.android.com/jetpack/androidx/releases/vectordrawable
 androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifact/androidx.versionedparcelable/versionedparcelable          https://developer.android.com/jetpack/androidx/releases/versionedparcelable
 
 google-material = "1.13.0-alpha01"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
@@ -55,6 +64,8 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-annotationExp = { module = "androidx.annotation:annotation-experimental", version.ref = "androidx-annotationExp" }
+androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
+androidx-appCompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appCompat" }
 androidx-arch-coreRuntime = { module = "androidx.arch.core:core-runtime", version.ref = "androidx-arch" }
 androidx-arch-coreCommon = { module = "androidx.arch.core:core-common", version.ref = "androidx-arch" }
 androidx-collection = { module = "androidx.collection:collection", version.ref = "androidx-collection" }
@@ -76,8 +87,14 @@ androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androi
 androidx-compose-ui-android = { module = "androidx.compose.ui:ui-android", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
+androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintLayout" }
+androidx-coordinatorLayout = { module = "androidx.coordinatorlayout:coordinatorlayout", version.ref = "androidx-coordinatorLayout" }
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-customView = { module = "androidx.customview:customview", version.ref = "androidx-customView" }
+androidx-drawerLayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "androidx-drawerLayout" }
+androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-common-jvm = { module = "androidx.lifecycle:lifecycle-common-jvm", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-liveData = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "androidx-lifecycle" }
@@ -93,9 +110,14 @@ androidx-lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmode
 androidx-lifecycle-viewModel-android = { module = "androidx.lifecycle:lifecycle-viewmodel-android", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewModelSavedState = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
+androidx-loader = { module = "androidx.loader:loader", version.ref = "androidx-loader" }
+androidx-localBroadcastManager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "androidx-localBroadcastManager" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-savedState = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedState" }
 androidx-savedState-ktx = { module = "androidx.savedstate:savedstate-ktx", version.ref = "androidx-savedState" }
+androidx-vectorDrawable = { module = "androidx.vectordrawable:vectordrawable", version.ref = "androidx-vectorDrawable" }
+androidx-vectorDrawable-animated = { module = "androidx.vectordrawable:vectordrawable-animated", version.ref = "androidx-vectorDrawable" }
+androidx-vectorDrawable-seekable = { module = "androidx.vectordrawable:vectordrawable-seekable", version.ref = "androidx-vectorDrawable" }
 androidx-versionedParcelable = { module = "androidx.versionedparcelable:versionedparcelable", version.ref = "androidx-versionedParcelable" }
 
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
