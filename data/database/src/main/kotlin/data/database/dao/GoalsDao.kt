@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import data.database.Table
 import data.database.entity.Goal
 import kotlinx.coroutines.flow.Flow
 
@@ -17,8 +16,10 @@ interface GoalsDao {
 
 	@Query(
 		"""
-		SELECT * FROM ${Table.GOALS} 
-		WHERE epoch_day = :epochDay
+		SELECT * FROM goals 
+		WHERE epoch_day <= :epochDay
+		ORDER BY epoch_day DESC
+		LIMIT 1
 		"""
 	)
 	fun observeGoal(epochDay: Long): Flow<Goal?>
