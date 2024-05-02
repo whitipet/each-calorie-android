@@ -28,7 +28,7 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 	}
 
 	fun saveGoal(calories: Int) = viewModelScope.launch {
-		repository.saveGoal(Random.Default.nextInt(0, 3500))
+		repository.updateGoal(Random.Default.nextInt(0, 3500))
 	}
 }
 

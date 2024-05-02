@@ -1,8 +1,11 @@
 package data
 
+import data.database.databaseModule
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val dataModule = module {
-	single<Repository> { Repository(Dispatchers.IO) }
+	includes(databaseModule)
+
+	single<Repository> { Repository(get(), Dispatchers.IO) }
 }

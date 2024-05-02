@@ -1,0 +1,19 @@
+plugins {
+	id "com.android.library"
+	id "kotlin-android"
+	id "com.google.devtools.ksp"
+}
+
+ksp {
+	arg("room.generateKotlin", "true")
+}
+
+dependencies {
+	implementation dep.androidx.room.runtime
+	implementation dep.androidx.room.ktx
+	ksp dep.androidx.room.compiler
+
+	implementation dep.kotlinx.coroutines.core
+
+	implementation dep.koin.core
+}

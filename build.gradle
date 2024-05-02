@@ -17,6 +17,7 @@ buildscript {
 		classpath dep.plugins.r8.get().toString()
 		classpath dep.plugins.android.get().toString()
 		classpath dep.plugins.kotlin.get().toString()
+		classpath dep.plugins.ksp.get().toString()
 		classpath dep.plugins.compose.get().toString()
 	}
 
