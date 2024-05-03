@@ -16,7 +16,7 @@ interface GoalsDao {
 
 	@Query(
 		"""
-		SELECT * FROM goals 
+		SELECT * FROM goals
 		WHERE epoch_day <= :epochDay
 		ORDER BY epoch_day DESC
 		LIMIT 1

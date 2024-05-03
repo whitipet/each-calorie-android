@@ -14,11 +14,22 @@ class Repository(
 	private val dispatcher: CoroutineDispatcher,
 ) {
 
+	private companion object {
+		val defaultFallbackGoal: Goal = Goal(0, 2500)
+	}
+
+	suspend fun setDefaultGoal(calories: Int) = withContext(dispatcher) {
+		goalsDatabaseDataSource.updateGoal(data.database.entity.Goal(0, calories))
+	}
+
 	suspend fun updateGoal(calories: Int, date: LocalDate = LocalDate.now()) = withContext(dispatcher) {
 		goalsDatabaseDataSource.updateGoal(data.database.entity.Goal(date.toEpochDay(), calories))
 	}
 
 	fun observeGoal(date: LocalDate = LocalDate.now()): Flow<Goal> =
 		goalsDatabaseDataSource.observeGoal(date.toEpochDay())
-			.map { Goal(it.epochDay, it.calories) }
+			.map {
+				if (it != null) Goal(it.epochDay, it.calories)
+				else defaultFallbackGoal
+			}
 }
