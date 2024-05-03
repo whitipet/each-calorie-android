@@ -22,5 +22,5 @@ interface GoalsDao {
 		LIMIT 1
 		"""
 	)
-	fun observeGoal(epochDay: Long): Flow<Goal?>
+	fun observeCurrentOrPrevGoal(epochDay: Long): Flow<Goal?>
 }

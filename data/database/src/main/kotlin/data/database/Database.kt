@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import data.database.dao.GoalsDao
 import data.database.entity.Goal
+import kotlinx.coroutines.Dispatchers
 
 @Database(
 	entities = [
@@ -20,13 +21,13 @@ internal abstract class Database : RoomDatabase() {
 		private var instance: data.database.Database? = null
 		private val LOCK = Any()
 
-		operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-			instance ?: buildDatabase(context).also { instance = it }
-		}
+		operator fun invoke(context: Context) = instance
+			?: synchronized(LOCK) { instance ?: buildDatabase(context).also { instance = it } }
 
 		private fun buildDatabase(context: Context) = Room
 			.databaseBuilder(context, data.database.Database::class.java, "database.db")
-			.fallbackToDestructiveMigration(true)
+			.fallbackToDestructiveMigrationOnDowngrade(true)
+			.setQueryCoroutineContext(Dispatchers.IO)
 			.build()
 	}
 

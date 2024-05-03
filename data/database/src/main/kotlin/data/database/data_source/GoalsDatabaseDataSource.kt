@@ -12,5 +12,5 @@ class GoalsDatabaseDataSource(
 
 	suspend fun updateGoal(goal: Goal) = goalsDao.insert(goal)
 
-	fun observeGoal(epochDay: Long): Flow<Goal> = goalsDao.observeGoal(epochDay).filterNotNull()
+	fun observeGoal(epochDay: Long): Flow<Goal> = goalsDao.observeCurrentOrPrevGoal(epochDay).filterNotNull()
 }
