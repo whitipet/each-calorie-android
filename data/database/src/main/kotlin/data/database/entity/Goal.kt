@@ -8,5 +8,5 @@ import data.database.Table
 @Entity(tableName = Table.GOALS)
 data class Goal(
 	@PrimaryKey @ColumnInfo(name = "epoch_day") val epochDay: Long,
-	@ColumnInfo(name = "calories") val calories: Int,
+	@ColumnInfo(name = "kcal") val kcal: Int,
 )

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import data.database.dao.GoalsDao
+import data.database.dao.GoalDao
 import data.database.entity.Goal
 import kotlinx.coroutines.Dispatchers
 
@@ -31,5 +31,5 @@ internal abstract class Database : RoomDatabase() {
 			.build()
 	}
 
-	abstract fun goalsDao(): GoalsDao
+	abstract fun goalDao(): GoalDao
 }

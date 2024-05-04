@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 
 // TODO: Internal
 @Dao
-interface GoalsDao {
+interface GoalDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insert(roomCollection: Goal)
+	suspend fun insert(goal: Goal)
 
 	@Query(
 		"""
