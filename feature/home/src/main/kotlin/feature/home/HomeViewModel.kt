@@ -18,21 +18,21 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 	init {
 		viewModelScope.launch {
 			repository.observeGoal().collect { goal ->
-				_uiState.update { it.copy(goal = goal.calories) }
+				_uiState.update { it.copy(goal = goal.kcal) }
 			}
 		}
 	}
 
-	fun updateCurrent(calories: Int) {
-		_uiState.update { it.copy(current = calories + 100) }
+	fun updateConsumed(kcal: Int) {
+		_uiState.update { it.copy(consumedKcal = kcal + 100) }
 	}
 
-	fun saveGoal(calories: Int) = viewModelScope.launch {
+	fun saveGoal(kcal: Int) = viewModelScope.launch {
 		repository.updateGoal(Random.Default.nextInt(0, 3500))
 	}
 }
 
 internal data class HomeUIState(
-	val current: Int = 0,
+	val consumedKcal: Int = 0,
 	val goal: Int = 0,
 )

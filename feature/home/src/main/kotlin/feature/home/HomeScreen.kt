@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -44,30 +46,28 @@ import project.ui.theme.Theme
 @Composable
 private fun HomeScreenPreview() = Theme {
 	HomeScreen(
-		state = remember { mutableStateOf(HomeUIState(600, 2500)) },
+		uiState = remember { mutableStateOf(HomeUIState(600, 2500)) },
 		onAddAction = {},
-		onUpdateGoalAction = {},
-		onUpdateCurrentAction = {}
+		onConsumedAction = {},
+		onGoalAction = {}
 	)
 }
 
 @Composable
 internal fun HomeScreen(
-	state: State<HomeUIState>,
+	uiState: State<HomeUIState>,
 	onAddAction: () -> Unit,
-	onUpdateGoalAction: (calories: Int) -> Unit,
-	onUpdateCurrentAction: (calories: Int) -> Unit,
+	onConsumedAction: (kcal: Int) -> Unit,
+	onGoalAction: (kcal: Int) -> Unit,
 ) {
-	val current: Int = state.value.current
-	val goal: Int = state.value.goal
+	val current: Int = uiState.value.consumedKcal
+	val goal: Int = uiState.value.goal
 
 	Scaffold(
 		floatingActionButtonPosition = FabPosition.Center,
 		floatingActionButton = {
-			FloatingActionButton(
-				onClick = { onAddAction() }
-			) {
-				Icon(Icons.Filled.Add, "Add")
+			FloatingActionButton(onClick = { onAddAction() }) {
+				Icon(Icons.Rounded.Add, "Add")
 			}
 		}
 	) { padding ->
@@ -75,16 +75,17 @@ internal fun HomeScreen(
 		Column(
 			modifier = Modifier
 				.fillMaxSize()
+				.verticalScroll(rememberScrollState())
 				.padding(padding)
-				.padding(horizontal = 24.dp)
-				.padding(top = 56.dp, bottom = fabSizeWithOffset),
+				.padding(bottom = fabSizeWithOffset)
+				.padding(horizontal = 24.dp, vertical = 56.dp),
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
-			CaloriesProgress(
+			ConsumptionProgress(
 				current = current,
 				goal = goal,
-				onCurrentLongClickAction = { onUpdateGoalAction(current) },
-				onGoalLongClickAction = { onUpdateCurrentAction(goal) }
+				onDeltaLongClickAction = { onConsumedAction(current) },
+				onGoalLongClickAction = { onGoalAction(goal) }
 			)
 		}
 	}
@@ -92,10 +93,10 @@ internal fun HomeScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun CaloriesProgress(
+private fun ConsumptionProgress(
 	current: Int,
 	goal: Int,
-	onCurrentLongClickAction: () -> Unit,
+	onDeltaLongClickAction: () -> Unit,
 	onGoalLongClickAction: () -> Unit,
 ) {
 	Box(
@@ -132,7 +133,7 @@ private fun CaloriesProgress(
 				text = "${if (delta > 0) "+" else ""}${current - goal}",
 				modifier = Modifier
 					.weight(1f)
-					.combinedClickable(onLongClick = { onCurrentLongClickAction() }, onClick = {}),
+					.combinedClickable(onLongClick = { onDeltaLongClickAction() }, onClick = {}),
 				maxLines = 1,
 				softWrap = false,
 				alignment = Alignment.Center,

@@ -3,8 +3,8 @@ package project.entity
 import java.time.LocalDate
 
 data class Goal(
-	val date: LocalDate = LocalDate.now(),
-	val calories: Int,
+	val date: LocalDate,
+	val kcal: Int,
 ) {
-	constructor(epochDay: Long, calories: Int) : this(LocalDate.ofEpochDay(epochDay), calories)
+	constructor(epochDay: Long, kcal: Int) : this(LocalDate.ofEpochDay(epochDay), kcal)
 }

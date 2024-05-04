@@ -15,7 +15,5 @@ dependencies {
 	implementation dep.androidx.compose.ui.tooling.preview
 
 	implementation dep.androidx.navigation.compose
-
-	implementation dep.koin.compose
 	implementation dep.koin.compose.navigation
 }
