@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import feature.add_consumption.addConsumptionScreen
-import feature.add_consumption.navigateToAddConsumption
+import feature.consumption.consumptionScreen
+import feature.consumption.navigateToConsumption
 import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.stats.statsScreen
@@ -30,9 +30,9 @@ private fun App() {
 		startDestination = HomeRoute,
 	) {
 		homeScreen(
-			onAddAction = { navController.navigateToAddConsumption() },
+			onAddAction = { navController.navigateToConsumption() },
 		)
-		addConsumptionScreen()
+		consumptionScreen(navController)
 		statsScreen()
 	}
 }

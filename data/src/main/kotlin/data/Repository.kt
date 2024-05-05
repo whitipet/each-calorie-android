@@ -1,16 +1,21 @@
 package data
 
+import data.database.data_source.ConsumptionDatabaseDataSource
 import data.database.data_source.GoalDatabaseDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import project.entity.Consumption
 import project.entity.Goal
+import java.time.Instant
 import java.time.LocalDate
 
 // TODO: Internal
 class Repository(
 	private val goalDataSource: GoalDatabaseDataSource,
+	private val consumptionDataSource: ConsumptionDatabaseDataSource,
 	private val dispatcher: CoroutineDispatcher,
 ) {
 
@@ -33,4 +38,25 @@ class Repository(
 			else defaultFallbackGoal
 		}
 	//endregion Goal
+
+	//region Consumption
+	suspend fun saveConsumption(consumption: Consumption) = withContext(dispatcher) {
+		consumptionDataSource.saveConsumption(
+			data.database.entity.Consumption(
+				epochSeconds = consumption.time.epochSecond,
+				kcal = consumption.kcal
+			)
+		)
+	}
+
+	fun observeConsumption(id: Long): Flow<Consumption> = consumptionDataSource.observeConsumption(id)
+		.filterNotNull()
+		.map { Consumption(it.id, Instant.ofEpochSecond(it.epochSeconds), it.kcal) }
+
+	fun observeConsumptions(epochDay: Long): Flow<List<Consumption>> =
+		consumptionDataSource.observeConsumptions(epochDay)
+			.map {
+				it.map { c -> Consumption(c.id, Instant.ofEpochSecond(c.epochSeconds), c.kcal) }
+			}
+	//endregion Consumption
 }

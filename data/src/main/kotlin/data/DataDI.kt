@@ -7,5 +7,5 @@ import org.koin.dsl.module
 val dataModule = module {
 	includes(databaseModule)
 
-	single<Repository> { Repository(get(), Dispatchers.IO) }
+	single<Repository> { Repository(get(), get(), Dispatchers.IO) }
 }
