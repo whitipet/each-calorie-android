@@ -4,13 +4,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import org.koin.androidx.compose.navigation.koinNavViewModel
 
 const val ConsumptionRoute = "consumption"
 
 fun NavGraphBuilder.consumptionScreen(
 	navController: NavController,
-) = composable(ConsumptionRoute) {
+) = composable(
+	ConsumptionRoute,
+	deepLinks = listOf(navDeepLink {
+		uriPattern = "ec://${ConsumptionRoute}"
+	})
+) {
 	val vm: ConsumptionViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 
