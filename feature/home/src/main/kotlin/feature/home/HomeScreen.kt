@@ -48,7 +48,6 @@ private fun HomeScreenPreview() = Theme {
 	HomeScreen(
 		uiState = remember { mutableStateOf(HomeUIState(600, 2500)) },
 		onAddAction = {},
-		onConsumedAction = {},
 		onGoalAction = {}
 	)
 }
@@ -57,7 +56,6 @@ private fun HomeScreenPreview() = Theme {
 internal fun HomeScreen(
 	uiState: State<HomeUIState>,
 	onAddAction: () -> Unit,
-	onConsumedAction: (kcal: Int) -> Unit,
 	onGoalAction: (kcal: Int) -> Unit,
 ) {
 	val current: Int = uiState.value.consumedKcal
@@ -84,7 +82,6 @@ internal fun HomeScreen(
 			ConsumptionProgress(
 				current = current,
 				goal = goal,
-				onDeltaLongClickAction = { onConsumedAction(current) },
 				onGoalLongClickAction = { onGoalAction(goal) }
 			)
 		}
@@ -96,7 +93,6 @@ internal fun HomeScreen(
 private fun ConsumptionProgress(
 	current: Int,
 	goal: Int,
-	onDeltaLongClickAction: () -> Unit,
 	onGoalLongClickAction: () -> Unit,
 ) {
 	Box(
@@ -131,9 +127,7 @@ private fun ConsumptionProgress(
 			val delta = current - goal
 			AutoSizeText(
 				text = "${if (delta > 0) "+" else ""}${current - goal}",
-				modifier = Modifier
-					.weight(1f)
-					.combinedClickable(onLongClick = { onDeltaLongClickAction() }, onClick = {}),
+				modifier = Modifier.weight(1f),
 				maxLines = 1,
 				softWrap = false,
 				alignment = Alignment.Center,

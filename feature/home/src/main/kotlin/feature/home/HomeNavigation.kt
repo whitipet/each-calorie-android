@@ -15,7 +15,6 @@ fun NavGraphBuilder.homeScreen(
 	HomeScreen(
 		uiState = uiState,
 		onAddAction = onAddAction,
-		onConsumedAction = vm::updateConsumed,
 		onGoalAction = vm::saveGoal
 	)
 }

@@ -11,6 +11,7 @@ import project.entity.Consumption
 import project.entity.Goal
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneOffset
 
 // TODO: Internal
 class Repository(
@@ -53,8 +54,8 @@ class Repository(
 		.filterNotNull()
 		.map { Consumption(it.id, Instant.ofEpochSecond(it.epochSeconds), it.kcal) }
 
-	fun observeConsumptions(epochDay: Long): Flow<List<Consumption>> =
-		consumptionDataSource.observeConsumptions(epochDay)
+	fun observeConsumptions(date: LocalDate): Flow<List<Consumption>> =
+		consumptionDataSource.observeConsumptions(date.atStartOfDay(ZoneOffset.UTC).toEpochSecond())
 			.map {
 				it.map { c -> Consumption(c.id, Instant.ofEpochSecond(c.epochSeconds), c.kcal) }
 			}
