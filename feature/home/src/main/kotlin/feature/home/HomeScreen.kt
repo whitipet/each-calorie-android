@@ -120,7 +120,7 @@ internal fun HomeScreen(
 				ConsumptionProgress(
 					modifier = Modifier
 						.padding(horizontal = 24.dp)
-						.padding(top = 56.dp, bottom = 24.dp),
+						.padding(top = 66.dp, bottom = 24.dp),
 					current = current,
 					goal = goal,
 					onGoalAction = onGoalAction
@@ -241,7 +241,7 @@ private fun ProgressBar(progress: Float) {
 	}
 
 	if (Build.VERSION.SDK_INT >= VERSION_CODES.S) {
-		Arcs(modifier = Modifier.blur(80.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded))
+		Arcs(modifier = Modifier.blur(48.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded))
 	}
 	Arcs()
 }
@@ -267,7 +267,7 @@ private fun ItemConsumed(
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			Text(
-				style = MaterialTheme.typography.bodyMedium,
+				style = MaterialTheme.typography.bodyLarge,
 				text = consumption.kcal.toString()
 			)
 			Text(
