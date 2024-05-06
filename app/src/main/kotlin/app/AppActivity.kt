@@ -11,7 +11,6 @@ import feature.consumption.consumptionScreen
 import feature.consumption.navigateToConsumption
 import feature.home.HomeRoute
 import feature.home.homeScreen
-import feature.stats.statsScreen
 import project.ui.theme.Theme
 
 class AppActivity : ComponentActivity() {
@@ -34,6 +33,5 @@ private fun App() {
 			onConsumptionAction = { navController.navigateToConsumption(it) },
 		)
 		consumptionScreen(navController)
-		statsScreen()
 	}
 }
