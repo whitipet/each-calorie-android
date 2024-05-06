@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -28,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +51,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.window.core.layout.WindowWidthSizeClass
 import project.entity.Consumption
 import project.ui.theme.Theme
 import java.time.Instant
@@ -93,18 +98,57 @@ internal fun HomeScreen(
 	onAddAction: () -> Unit,
 	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
-) {
-	val current: Int = uiState.value.consumedKcal
-	val goal: Int = uiState.value.goal
-
-	Scaffold(
-		floatingActionButtonPosition = FabPosition.Center,
-		floatingActionButton = {
-			FloatingActionButton(onClick = onAddAction) {
-				Icon(Icons.Rounded.Add, "Add")
+	widthSizeClass: WindowWidthSizeClass = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass,
+) = Scaffold(
+	floatingActionButtonPosition =
+	if (widthSizeClass == WindowWidthSizeClass.EXPANDED) FabPosition.End
+	else FabPosition.Center,
+	floatingActionButton = {
+		FloatingActionButton(onClick = onAddAction) {
+			Icon(Icons.Rounded.Add, "Add")
+		}
+	}
+) { padding ->
+	if (widthSizeClass == WindowWidthSizeClass.EXPANDED)
+		Row(
+			modifier = Modifier.fillMaxSize(),
+			verticalAlignment = Alignment.CenterVertically,
+		) {
+			ConsumptionProgress(
+				modifier = Modifier
+					.aspectRatio(1f, true)
+					.weight(1f)
+					.padding(padding)
+					.padding(16.dp)
+					.windowInsetsPadding(WindowInsets.safeContent),
+				current = uiState.value.consumedKcal,
+				goal = uiState.value.goal,
+				onGoalAction = onGoalAction
+			)
+			LazyColumn(
+				modifier = Modifier.weight(1f),
+				contentPadding = PaddingValues( // FIXME: PaddingValues causes frame skip during scroll
+					start = padding.calculateStartPadding(LocalLayoutDirection.current),
+					top = padding.calculateTopPadding() + 24.dp,
+					end = padding.calculateEndPadding(LocalLayoutDirection.current),
+					bottom = padding.calculateBottomPadding() + (56.dp + 32.dp) // TODO: Find way to calculate FAB size
+				),
+				horizontalAlignment = Alignment.CenterHorizontally,
+				verticalArrangement = Arrangement.spacedBy(8.dp)
+			) {
+				items(
+					items = uiState.value.consumptions,
+					key = { it.id },
+					contentType = { it::class }
+				) { c ->
+					ItemConsumed(
+						consumption = c,
+						onClick = { onConsumptionAction(c.id) }
+					)
+				}
 			}
 		}
-	) { padding ->
+	else
 		LazyColumn(
 			modifier = Modifier.fillMaxSize(),
 			contentPadding = PaddingValues( // FIXME: PaddingValues causes frame skip during scroll
@@ -119,10 +163,12 @@ internal fun HomeScreen(
 			item {
 				ConsumptionProgress(
 					modifier = Modifier
+						.aspectRatio(1f)
+						.fillMaxWidth()
 						.padding(horizontal = 24.dp)
 						.padding(top = 66.dp, bottom = 24.dp),
-					current = current,
-					goal = goal,
+					current = uiState.value.consumedKcal,
+					goal = uiState.value.goal,
 					onGoalAction = onGoalAction
 				)
 			}
@@ -138,7 +184,6 @@ internal fun HomeScreen(
 				)
 			}
 		}
-	}
 }
 
 //region ConsumptionProgress
@@ -150,9 +195,7 @@ private fun ConsumptionProgress(
 	onGoalAction: () -> Unit,
 ) {
 	Box(
-		modifier = modifier
-			.aspectRatio(1f)
-			.fillMaxWidth(),
+		modifier = modifier.aspectRatio(1f),
 		contentAlignment = Alignment.Center
 	) {
 		ProgressBar(
