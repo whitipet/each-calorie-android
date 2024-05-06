@@ -3,8 +3,7 @@ package feature.home
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -92,7 +91,7 @@ private fun HomeScreenPreview() = Theme {
 internal fun HomeScreen(
 	uiState: State<HomeUIState>,
 	onAddAction: () -> Unit,
-	onGoalAction: (kcal: Int) -> Unit,
+	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
 ) {
 	val current: Int = uiState.value.consumedKcal
@@ -101,7 +100,7 @@ internal fun HomeScreen(
 	Scaffold(
 		floatingActionButtonPosition = FabPosition.Center,
 		floatingActionButton = {
-			FloatingActionButton(onClick = { onAddAction() }) {
+			FloatingActionButton(onClick = onAddAction) {
 				Icon(Icons.Rounded.Add, "Add")
 			}
 		}
@@ -124,7 +123,7 @@ internal fun HomeScreen(
 						.padding(top = 56.dp, bottom = 24.dp),
 					current = current,
 					goal = goal,
-					onGoalLongClickAction = { onGoalAction(goal) }
+					onGoalAction = onGoalAction
 				)
 			}
 
@@ -143,13 +142,12 @@ internal fun HomeScreen(
 }
 
 //region ConsumptionProgress
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ConsumptionProgress(
 	modifier: Modifier = Modifier,
 	current: Int,
 	goal: Int,
-	onGoalLongClickAction: () -> Unit,
+	onGoalAction: () -> Unit,
 ) {
 	Box(
 		modifier = modifier
@@ -193,7 +191,7 @@ private fun ConsumptionProgress(
 				text = goal.toString(),
 				modifier = Modifier
 					.weight(1f)
-					.combinedClickable(onLongClick = { onGoalLongClickAction() }, onClick = {}),
+					.clickable { onGoalAction() },
 				maxLines = 1,
 				softWrap = false,
 				alignment = Alignment.Center,

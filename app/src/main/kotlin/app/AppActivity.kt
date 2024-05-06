@@ -11,6 +11,8 @@ import feature.consumption.consumptionScreen
 import feature.consumption.navigateToConsumption
 import feature.home.HomeRoute
 import feature.home.homeScreen
+import feature.set_goal.setGoalDialog
+import feature.set_goal.showSetGoalDialog
 import project.ui.theme.Theme
 
 class AppActivity : ComponentActivity() {
@@ -30,8 +32,10 @@ private fun App() {
 	) {
 		homeScreen(
 			onAddAction = { navController.navigateToConsumption() },
+			onGoalAction = { navController.showSetGoalDialog() },
 			onConsumptionAction = { navController.navigateToConsumption(it) },
 		)
 		consumptionScreen(navController)
+		setGoalDialog(navController)
 	}
 }

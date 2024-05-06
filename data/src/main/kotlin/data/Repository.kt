@@ -30,7 +30,7 @@ class Repository(
 	}
 
 	suspend fun updateGoal(kcal: Int, date: LocalDate = LocalDate.now()) = withContext(dispatcher) {
-		goalDataSource.saveGoal(data.database.entity.Goal(date.toEpochDay(), kcal))
+		goalDataSource.updateGoal(data.database.entity.Goal(date.toEpochDay(), kcal))
 	}
 
 	fun observeGoal(date: LocalDate = LocalDate.now()): Flow<Goal> = goalDataSource.observeGoal(date.toEpochDay())

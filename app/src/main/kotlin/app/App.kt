@@ -4,6 +4,7 @@ import android.app.Application
 import data.dataModule
 import feature.consumption.consumptionModule
 import feature.home.homeModule
+import feature.set_goal.setGoalModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -18,6 +19,7 @@ class Application : Application() {
 
 				homeModule,
 				consumptionModule,
+				setGoalModule,
 			)
 		}
 	}

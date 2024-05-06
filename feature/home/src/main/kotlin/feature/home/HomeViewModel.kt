@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import project.entity.Consumption
 import java.time.LocalDate
-import kotlin.random.Random
 
 internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 
@@ -34,10 +33,6 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 				}
 			}
 		}
-	}
-
-	fun saveGoal(kcal: Int) = viewModelScope.launch {
-		repository.updateGoal(Random.Default.nextInt(0, 3500))
 	}
 }
 

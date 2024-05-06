@@ -11,6 +11,7 @@ dependencies {
 
 	implementation project(":feature:home")
 	implementation project(":feature:consumption")
+	implementation project(":feature:set-goal")
 
 	implementation dep.google.material
 

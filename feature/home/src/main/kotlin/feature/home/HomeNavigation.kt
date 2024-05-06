@@ -9,6 +9,7 @@ const val HomeRoute = "home"
 
 fun NavGraphBuilder.homeScreen(
 	onAddAction: () -> Unit,
+	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
 ) = composable(HomeRoute) {
 	val vm: HomeViewModel = koinNavViewModel()
@@ -16,7 +17,7 @@ fun NavGraphBuilder.homeScreen(
 	HomeScreen(
 		uiState = uiState,
 		onAddAction = onAddAction,
-		onGoalAction = vm::saveGoal,
+		onGoalAction = onGoalAction,
 		onConsumptionAction = onConsumptionAction,
 	)
 }
