@@ -38,9 +38,16 @@ internal class ConsumptionViewModel(
 			return
 		}
 		viewModelScope.launch {
-			with(uiState.value) { repository.saveConsumption(Consumption(id = id, time = time, kcal = kcal)) }
+			with(uiState.value) { repository.saveConsumption(Consumption(id = id ?: 0, time = time, kcal = kcal)) }
 		}
 	}
+
+	fun deleteConsumption() =
+		uiState.value.id?.let { id ->
+			viewModelScope.launch {
+				repository.deleteConsumption(id)
+			}
+		}
 
 	fun updateKcal(kcal: Int) = _uiState.update {
 		it.copy(
@@ -51,7 +58,7 @@ internal class ConsumptionViewModel(
 }
 
 internal data class ConsumptionUIState(
-	val id: Long = 0,
+	val id: Long? = null,
 	val time: Instant = Instant.now(),
 	val kcal: Int = 0,
 	val isError: Boolean = false,

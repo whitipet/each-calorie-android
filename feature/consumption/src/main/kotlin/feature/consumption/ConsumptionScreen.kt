@@ -1,5 +1,6 @@
 package feature.consumption
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.DateRange
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.FabPosition
@@ -59,10 +61,19 @@ import java.util.Locale
 @Composable
 private fun ConsumptionScreenPreview() = Theme {
 	ConsumptionScreen(
-		uiState = remember { mutableStateOf(ConsumptionUIState()) },
+		uiState = remember {
+			mutableStateOf(
+				ConsumptionUIState(
+					id = 0,
+					kcal = 100,
+					isError = false
+				)
+			)
+		},
 		onBackAction = {},
 		updateKcalAction = {},
-		onSaveAction = {}
+		onSaveAction = {},
+		onDeleteAction = {},
 	)
 }
 
@@ -72,6 +83,7 @@ internal fun ConsumptionScreen(
 	onBackAction: () -> Unit,
 	updateKcalAction: (kcal: Int) -> Unit,
 	onSaveAction: () -> Unit,
+	onDeleteAction: () -> Unit,
 ) {
 	Scaffold(
 		floatingActionButtonPosition = FabPosition.End,
@@ -175,12 +187,26 @@ internal fun ConsumptionScreen(
 			LaunchedEffect(Unit) { focusRequester.requestFocus() }
 		}
 
-		FilledTonalIconButton(
-			modifier = Modifier
-				.padding(padding)
-				.padding(4.dp),
-			onClick = { onBackAction() }) {
-			Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
+		Row(
+			modifier = Modifier.fillMaxWidth(),
+			horizontalArrangement = Arrangement.SpaceBetween
+		) {
+			FilledTonalIconButton(
+				modifier = Modifier
+					.padding(padding)
+					.padding(4.dp),
+				onClick = { onBackAction() }) {
+				Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
+			}
+
+			if (uiState.value.id != null)
+				IconButton(
+					modifier = Modifier
+						.padding(padding)
+						.padding(4.dp),
+					onClick = { onDeleteAction() }) {
+					Icon(Icons.Rounded.Delete, "Delete")
+				}
 		}
 	}
 }

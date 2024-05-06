@@ -17,6 +17,14 @@ interface ConsumptionDao {
 
 	@Query(
 		"""
+		DELETE FROM ${Table.CONSUMPTIONS}
+		WHERE id == :id
+		"""
+	)
+	suspend fun delete(id: Long)
+
+	@Query(
+		"""
 		SELECT * FROM ${Table.CONSUMPTIONS}
 		WHERE id == :id
 		"""

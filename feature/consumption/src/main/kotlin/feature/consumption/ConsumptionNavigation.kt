@@ -19,20 +19,24 @@ fun NavGraphBuilder.consumptionScreen(
 		uriPattern = "ec://${ConsumptionRouteBase}"
 	})
 ) {
-	val vm: ConsumptionViewModel = koinNavViewModel()
-	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	fun closeScreen() {
 		// FIXME: Lag during fast click
 		if (!navController.popBackStack(ConsumptionRouteBase, inclusive = true, saveState = true))
 			navController.currentDestination?.id?.let { navController.navigate(it) }
 	}
 
+	val vm: ConsumptionViewModel = koinNavViewModel()
+	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	ConsumptionScreen(
 		uiState = uiState,
 		onBackAction = ::closeScreen,
 		updateKcalAction = vm::updateKcal,
 		onSaveAction = {
 			vm.saveConsumption()
+			closeScreen()
+		},
+		onDeleteAction = {
+			vm.deleteConsumption()
 			closeScreen()
 		}
 	)

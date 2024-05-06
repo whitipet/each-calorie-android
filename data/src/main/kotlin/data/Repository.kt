@@ -51,6 +51,10 @@ class Repository(
 		)
 	}
 
+	suspend fun deleteConsumption(id: Long) = withContext(dispatcher) {
+		consumptionDataSource.deleteConsumption(id)
+	}
+
 	fun observeConsumption(id: Long): Flow<Consumption> = consumptionDataSource.observeConsumption(id)
 		.filterNotNull()
 		.map { Consumption(it.id, Instant.ofEpochSecond(it.epochSeconds), it.kcal) }

@@ -9,6 +9,8 @@ class ConsumptionDatabaseDataSource(private val consumptionDao: ConsumptionDao) 
 
 	suspend fun saveConsumption(consumption: Consumption): Long = consumptionDao.insert(consumption)
 
+	suspend fun deleteConsumption(id: Long) = consumptionDao.delete(id)
+
 	fun observeConsumption(id: Long): Flow<Consumption?> = consumptionDao.observeConsumption(id)
 
 	fun observeConsumptions(epochDay: Long): Flow<List<Consumption>> = consumptionDao.observeConsumptions(epochDay)
