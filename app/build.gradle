@@ -5,6 +5,8 @@ plugins {
 }
 
 dependencies {
+	implementation project(":app:icon")
+
 	implementation project(":project:ui:theme")
 
 	implementation project(":data")
