@@ -61,8 +61,6 @@ class Repository(
 
 	fun observeConsumptions(date: LocalDate): Flow<List<Consumption>> =
 		consumptionDataSource.observeConsumptions(date.atStartOfDay(ZoneOffset.UTC).toEpochSecond())
-			.map {
-				it.map { c -> Consumption(c.id, Instant.ofEpochSecond(c.epochSeconds), c.kcal) }
-			}
+			.map { it.map { c -> Consumption(c.id, Instant.ofEpochSecond(c.epochSeconds), c.kcal) } }
 	//endregion Consumption
 }

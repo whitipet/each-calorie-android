@@ -34,8 +34,8 @@ interface ConsumptionDao {
 	@Query(
 		"""
 		SELECT * FROM ${Table.CONSUMPTIONS}
-		WHERE DATE(epoch_seconds, 'auto') == DATE(:epochDay, 'auto')
+		WHERE DATE(epoch_seconds, 'auto', 'localtime') == DATE(:epochSecondsAtStartOfDay, 'auto')
 		"""
 	)
-	fun observeConsumptions(epochDay: Long): Flow<List<Consumption>>
+	fun observeConsumptions(epochSecondsAtStartOfDay: Long): Flow<List<Consumption>>
 }

@@ -13,5 +13,6 @@ class ConsumptionDatabaseDataSource(private val consumptionDao: ConsumptionDao) 
 
 	fun observeConsumption(id: Long): Flow<Consumption?> = consumptionDao.observeConsumption(id)
 
-	fun observeConsumptions(epochDay: Long): Flow<List<Consumption>> = consumptionDao.observeConsumptions(epochDay)
+	fun observeConsumptions(epochSecondsAtStartOfDay: Long): Flow<List<Consumption>> =
+		consumptionDao.observeConsumptions(epochSecondsAtStartOfDay)
 }
