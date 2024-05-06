@@ -9,7 +9,5 @@ class GoalDatabaseDataSource(private val goalDao: GoalDao) {
 
 	suspend fun saveGoal(goal: Goal) = goalDao.insert(goal)
 
-	suspend fun updateGoal(goal: Goal) = goalDao.update(goal)
-
 	fun observeGoal(epochDay: Long): Flow<Goal?> = goalDao.observeCurrentOrPrevGoal(epochDay)
 }
