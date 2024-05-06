@@ -44,6 +44,7 @@ class Repository(
 	suspend fun saveConsumption(consumption: Consumption) = withContext(dispatcher) {
 		consumptionDataSource.saveConsumption(
 			data.database.entity.Consumption(
+				id = consumption.id,
 				epochSeconds = consumption.time.epochSecond,
 				kcal = consumption.kcal
 			)

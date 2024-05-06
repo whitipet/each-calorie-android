@@ -1,5 +1,6 @@
 package feature.consumption
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.Repository
@@ -11,10 +12,25 @@ import kotlinx.coroutines.launch
 import project.entity.Consumption
 import java.time.Instant
 
-internal class ConsumptionViewModel(private val repository: Repository) : ViewModel() {
+internal class ConsumptionViewModel(
+	savedStateHandle: SavedStateHandle,
+	private val repository: Repository,
+) : ViewModel() {
+
+	private val args = ConsumptionArgs(savedStateHandle)
 
 	private val _uiState: MutableStateFlow<ConsumptionUIState> = MutableStateFlow(ConsumptionUIState())
 	val uiState: StateFlow<ConsumptionUIState> = _uiState.asStateFlow()
+
+	init {
+		args.id?.let { id ->
+			viewModelScope.launch {
+				repository.observeConsumption(id).collect { c ->
+					_uiState.update { it.copy(id = c.id, time = c.time, kcal = c.kcal) }
+				}
+			}
+		}
+	}
 
 	fun saveConsumption() {
 		if (uiState.value.kcal < 1) {
@@ -22,7 +38,7 @@ internal class ConsumptionViewModel(private val repository: Repository) : ViewMo
 			return
 		}
 		viewModelScope.launch {
-			repository.saveConsumption(Consumption(time = uiState.value.time, kcal = uiState.value.kcal))
+			with(uiState.value) { repository.saveConsumption(Consumption(id = id, time = time, kcal = kcal)) }
 		}
 	}
 
@@ -35,6 +51,7 @@ internal class ConsumptionViewModel(private val repository: Repository) : ViewMo
 }
 
 internal data class ConsumptionUIState(
+	val id: Long = 0,
 	val time: Instant = Instant.now(),
 	val kcal: Int = 0,
 	val isError: Boolean = false,

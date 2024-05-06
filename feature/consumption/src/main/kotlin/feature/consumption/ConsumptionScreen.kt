@@ -169,13 +169,7 @@ internal fun ConsumptionScreen(
 				onValueChange = {
 					val text = it.text
 					if (text.length >= 7) return@OutlinedTextField
-					updateKcalAction(
-						try {
-							Integer.parseInt(text)
-						} catch (_: Exception) {
-							0
-						}
-					)
+					updateKcalAction(text.toIntOrNull() ?: 0)
 				}
 			)
 			LaunchedEffect(Unit) { focusRequester.requestFocus() }

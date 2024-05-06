@@ -1,5 +1,6 @@
 package feature.consumption
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -7,22 +8,22 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import org.koin.androidx.compose.navigation.koinNavViewModel
 
-const val ConsumptionRoute = "consumption"
+private const val ConsumptionRouteBase = "consumption"
+private const val argId = "id"
 
 fun NavGraphBuilder.consumptionScreen(
 	navController: NavController,
 ) = composable(
-	ConsumptionRoute,
+	"$ConsumptionRouteBase?$argId={$argId}",
 	deepLinks = listOf(navDeepLink {
-		uriPattern = "ec://${ConsumptionRoute}"
+		uriPattern = "ec://${ConsumptionRouteBase}"
 	})
 ) {
 	val vm: ConsumptionViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
-
 	fun closeScreen() {
 		// FIXME: Lag during fast click
-		if (!navController.popBackStack(ConsumptionRoute, inclusive = true, saveState = true))
+		if (!navController.popBackStack(ConsumptionRouteBase, inclusive = true, saveState = true))
 			navController.currentDestination?.id?.let { navController.navigate(it) }
 	}
 
@@ -37,4 +38,8 @@ fun NavGraphBuilder.consumptionScreen(
 	)
 }
 
-fun NavController.navigateToConsumption() = navigate(ConsumptionRoute)
+fun NavController.navigateToConsumption(id: Long? = null) = navigate("$ConsumptionRouteBase?$argId=${id.toString()}")
+
+internal class ConsumptionArgs(val id: Long?) {
+	constructor(savedStateHandle: SavedStateHandle) : this(savedStateHandle.get<String>(argId)?.toLongOrNull())
+}

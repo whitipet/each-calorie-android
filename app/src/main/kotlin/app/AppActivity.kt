@@ -31,6 +31,7 @@ private fun App() {
 	) {
 		homeScreen(
 			onAddAction = { navController.navigateToConsumption() },
+			onConsumptionAction = { navController.navigateToConsumption(it) },
 		)
 		consumptionScreen(navController)
 		statsScreen()
