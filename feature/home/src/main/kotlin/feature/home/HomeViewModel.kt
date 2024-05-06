@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import project.entity.Consumption
 import java.time.LocalDate
 import kotlin.random.Random
 
@@ -25,8 +26,12 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 
 		viewModelScope.launch {
 			repository.observeConsumptions(LocalDate.now()).collect { consumptions ->
-				val consumedKcal = consumptions.fold(0) { kcal, c -> kcal + c.kcal }
-				_uiState.update { it.copy(consumedKcal = consumedKcal) }
+				_uiState.update {
+					it.copy(
+						consumedKcal = consumptions.fold(0) { kcal, c -> kcal + c.kcal },
+						consumptions = consumptions.sortedByDescending { c -> c.time }
+					)
+				}
 			}
 		}
 	}
@@ -37,6 +42,7 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 }
 
 internal data class HomeUIState(
-	val consumedKcal: Int = 0,
 	val goal: Int = 0,
+	val consumedKcal: Int = 0,
+	val consumptions: List<Consumption> = emptyList(),
 )
