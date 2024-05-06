@@ -57,6 +57,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.FormatStyle
 import java.util.Locale
+import kotlin.random.Random
 
 @Preview(showBackground = true)
 @Composable
@@ -67,11 +68,17 @@ private fun HomeScreenPreview() = Theme {
 				HomeUIState(
 					goal = 2500,
 					consumedKcal = 600,
-					consumptions = listOf(
-						Consumption(0, Instant.now(), 100),
-						Consumption(0, Instant.now(), 200),
-						Consumption(0, Instant.now(), 300),
-					)
+					consumptions = buildList {
+						for (i in 1..20) {
+							add(
+								Consumption(
+									Random.nextLong(),
+									Instant.now().plusSeconds(Random.nextInt(Int.MIN_VALUE, Int.MAX_VALUE).toLong()),
+									Random.nextInt(0, 1000)
+								)
+							)
+						}
+					}
 				)
 			)
 		},
@@ -101,7 +108,7 @@ internal fun HomeScreen(
 	) { padding ->
 		LazyColumn(
 			modifier = Modifier.fillMaxSize(),
-			contentPadding = PaddingValues(
+			contentPadding = PaddingValues( // FIXME: PaddingValues causes frame skip during scroll
 				start = padding.calculateStartPadding(LocalLayoutDirection.current),
 				top = padding.calculateTopPadding(),
 				end = padding.calculateEndPadding(LocalLayoutDirection.current),
@@ -123,50 +130,19 @@ internal fun HomeScreen(
 
 			items(
 				items = uiState.value.consumptions,
-				contentType = { it }
+				key = { it.id },
+				contentType = { it::class }
 			) { c ->
-				ElevatedCard(
-					modifier = Modifier
-						.fillMaxWidth()
-						.padding(horizontal = 24.dp),
-					onClick = { onConsumptionAction(c.id) },
-				) {
-					Row(
-						modifier = Modifier
-							.fillMaxWidth()
-							.defaultMinSize(minHeight = 56.dp)
-							.padding(16.dp),
-						verticalAlignment = Alignment.CenterVertically
-					) {
-						Text(
-							style = MaterialTheme.typography.bodyMedium,
-							text = c.kcal.toString()
-						)
-						Text(
-							modifier = Modifier
-								.weight(1f)
-								.alpha(0.5f),
-							style = MaterialTheme.typography.bodySmall,
-							text = " kcal",
-						)
-						Text(
-							style = MaterialTheme.typography.bodyMedium,
-							text = DateTimeFormatter.ofPattern(
-								DateTimeFormatterBuilder.getLocalizedDateTimePattern(
-									null,
-									FormatStyle.SHORT,
-									IsoChronology.INSTANCE,
-									Locale.getDefault()
-								)
-							).withZone(ZoneId.systemDefault()).format(c.time)
-						)
-					}
-				}
+				ItemConsumed(
+					consumption = c,
+					onClick = { onConsumptionAction(c.id) }
+				)
 			}
 		}
 	}
 }
 
+//region ConsumptionProgress
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ConsumptionProgress(
@@ -271,3 +247,50 @@ private fun ProgressBar(progress: Float) {
 	}
 	Arcs()
 }
+//endregion ConsumptionProgress
+
+//region ItemConsumed
+@Composable
+private fun ItemConsumed(
+	consumption: Consumption,
+	onClick: () -> Unit,
+) {
+	ElevatedCard(
+		modifier = Modifier
+			.fillMaxWidth()
+			.padding(horizontal = 24.dp),
+		onClick = onClick,
+	) {
+		Row(
+			modifier = Modifier
+				.fillMaxWidth()
+				.defaultMinSize(minHeight = 56.dp)
+				.padding(16.dp),
+			verticalAlignment = Alignment.CenterVertically
+		) {
+			Text(
+				style = MaterialTheme.typography.bodyMedium,
+				text = consumption.kcal.toString()
+			)
+			Text(
+				modifier = Modifier
+					.weight(1f)
+					.alpha(0.5f),
+				style = MaterialTheme.typography.bodySmall,
+				text = " kcal",
+			)
+			Text(
+				style = MaterialTheme.typography.bodyMedium,
+				text = DateTimeFormatter.ofPattern(
+					DateTimeFormatterBuilder.getLocalizedDateTimePattern(
+						null,
+						FormatStyle.SHORT,
+						IsoChronology.INSTANCE,
+						Locale.getDefault()
+					)
+				).withZone(ZoneId.systemDefault()).format(consumption.time)
+			)
+		}
+	}
+}
+//endregion ItemConsumed
