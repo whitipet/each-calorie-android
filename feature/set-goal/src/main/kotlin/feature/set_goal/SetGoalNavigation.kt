@@ -8,9 +8,7 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 
 private const val SetGoalRoute = "set_goal"
 
-fun NavGraphBuilder.setGoalDialog(
-	navController: NavController,
-) = dialog(SetGoalRoute) {
+fun NavGraphBuilder.setGoalDialog(navController: NavController) = dialog(SetGoalRoute) {
 	fun closeScreen() {
 		// FIXME: Lag during fast click
 		if (!navController.popBackStack(SetGoalRoute, inclusive = true, saveState = true))

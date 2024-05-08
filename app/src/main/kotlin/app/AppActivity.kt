@@ -1,6 +1,5 @@
 package app
 
-import android.R
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.TypedValue
@@ -27,7 +26,7 @@ class AppActivity : ComponentActivity() {
 
 		try {
 			val windowBackgroundResId = TypedValue().let {
-				theme.resolveAttribute(R.attr.windowBackground, it, true)
+				theme.resolveAttribute(android.R.attr.windowBackground, it, true)
 				it.resourceId
 			}
 			@ColorInt val windowBackgroundColor: Int = resources.getColor(windowBackgroundResId, theme)

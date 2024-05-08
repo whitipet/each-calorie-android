@@ -11,9 +11,7 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 private const val ConsumptionRouteBase = "consumption"
 private const val argId = "id"
 
-fun NavGraphBuilder.consumptionScreen(
-	navController: NavController,
-) = composable(
+fun NavGraphBuilder.consumptionScreen(navController: NavController) = composable(
 	"$ConsumptionRouteBase?$argId={$argId}",
 	deepLinks = listOf(navDeepLink {
 		uriPattern = "ec://${ConsumptionRouteBase}"
