@@ -13,7 +13,6 @@ dependencies {
 	implementation dep.androidx.compose.material3
 	debugImplementation dep.androidx.compose.ui.tooling
 	implementation dep.androidx.compose.ui.tooling.preview
-	implementation dep.androidx.compose.adaptive
 
 	implementation dep.androidx.navigation.compose
 	implementation dep.koin.compose.navigation
