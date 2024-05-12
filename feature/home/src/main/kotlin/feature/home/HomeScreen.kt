@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -47,6 +48,7 @@ import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -84,8 +86,9 @@ private fun HomeScreenPreview() = Theme {
 				)
 			)
 		},
-		onAddAction = {},
+		onAddConsumptionAction = {},
 		onGoalAction = {},
+		onFoodBookAction = {},
 		onConsumptionAction = {},
 	)
 }
@@ -94,21 +97,30 @@ private fun HomeScreenPreview() = Theme {
 @Composable
 internal fun HomeScreen(
 	uiState: State<HomeUIState>,
-	onAddAction: () -> Unit,
 	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
+	onFoodBookAction: () -> Unit,
+	onAddConsumptionAction: () -> Unit,
 ) {
 	val scrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
 	Scaffold(
 		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 		bottomBar = {
 			BottomAppBar(
-				actions = {},
+				actions = {
+					IconButton(onClick = onFoodBookAction) {
+						Icon(painterResource(id = R.drawable.ic_menu_book), "Food Book")
+					}
+				},
 				scrollBehavior = scrollBehavior,
 			)
 		},
 
-		floatingActionButton = { FloatingActionButton(onClick = onAddAction) { Icon(Icons.Rounded.Add, "Add") } },
+		floatingActionButton = {
+			FloatingActionButton(onClick = onAddConsumptionAction) {
+				Icon(Icons.Rounded.Add, "Add")
+			}
+		},
 		floatingActionButtonPosition = FabPosition.EndOverlay,
 	) { padding ->
 		LazyColumn(

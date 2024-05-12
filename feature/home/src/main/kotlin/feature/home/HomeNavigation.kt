@@ -8,16 +8,18 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 const val HomeRoute = "home"
 
 fun NavGraphBuilder.homeScreen(
-	onAddAction: () -> Unit,
 	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
+	onFoodBookAction: () -> Unit,
+	onAddConsumptionAction: () -> Unit,
 ) = composable(HomeRoute) {
 	val vm: HomeViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	HomeScreen(
 		uiState = uiState,
-		onAddAction = onAddAction,
 		onGoalAction = onGoalAction,
 		onConsumptionAction = onConsumptionAction,
+		onFoodBookAction = onFoodBookAction,
+		onAddConsumptionAction = onAddConsumptionAction,
 	)
 }

@@ -14,6 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import feature.consumption.consumptionScreen
 import feature.consumption.navigateToConsumption
+import feature.food_book.foodBookScreen
+import feature.food_book.showFoodBookScreen
 import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
@@ -56,11 +58,13 @@ private fun App() {
 		startDestination = HomeRoute,
 	) {
 		homeScreen(
-			onAddAction = { navController.navigateToConsumption() },
 			onGoalAction = { navController.showSetGoalDialog() },
 			onConsumptionAction = { navController.navigateToConsumption(it) },
+			onFoodBookAction = { navController.showFoodBookScreen() },
+			onAddConsumptionAction = { navController.navigateToConsumption() },
 		)
 		consumptionScreen(navController)
 		setGoalDialog(navController)
+		foodBookScreen(navController)
 	}
 }

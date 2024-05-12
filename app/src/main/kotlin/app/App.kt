@@ -3,6 +3,7 @@ package app
 import android.app.Application
 import data.dataModule
 import feature.consumption.consumptionModule
+import feature.food_book.foodBookModule
 import feature.home.homeModule
 import feature.set_goal.setGoalModule
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ class Application : Application() {
 				homeModule,
 				consumptionModule,
 				setGoalModule,
+				foodBookModule,
 			)
 		}
 	}
