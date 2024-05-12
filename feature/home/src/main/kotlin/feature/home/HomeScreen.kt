@@ -21,7 +21,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -43,6 +45,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -87,53 +90,61 @@ private fun HomeScreenPreview() = Theme {
 	)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
 	uiState: State<HomeUIState>,
 	onAddAction: () -> Unit,
 	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
-) = Scaffold(
-	floatingActionButtonPosition = FabPosition.Center,
-	floatingActionButton = {
-		FloatingActionButton(onClick = onAddAction) {
-			Icon(Icons.Rounded.Add, "Add")
-		}
-	}
-) { padding ->
-	LazyColumn(
-		modifier = Modifier.fillMaxSize(),
-		contentPadding = PaddingValues( // FIXME: PaddingValues causes frame skip during scroll
-			start = padding.calculateStartPadding(LocalLayoutDirection.current),
-			top = padding.calculateTopPadding(),
-			end = padding.calculateEndPadding(LocalLayoutDirection.current),
-			bottom = padding.calculateBottomPadding() + (56.dp + 32.dp) // TODO: Find way to calculate FAB size
-		),
-		horizontalAlignment = Alignment.CenterHorizontally,
-		verticalArrangement = Arrangement.spacedBy(8.dp)
-	) {
-		item {
-			ConsumptionProgress(
-				modifier = Modifier
-					.aspectRatio(1f)
-					.fillMaxWidth()
-					.padding(horizontal = 24.dp)
-					.padding(top = 66.dp, bottom = 24.dp),
-				current = uiState.value.consumedKcal,
-				goal = uiState.value.goal,
-				onGoalAction = onGoalAction
+) {
+	val scrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+	Scaffold(
+		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+		bottomBar = {
+			BottomAppBar(
+				actions = {},
+				scrollBehavior = scrollBehavior,
 			)
-		}
+		},
 
-		items(
-			items = uiState.value.consumptions,
-			key = { it.id },
-			contentType = { it::class }
-		) { c ->
-			ItemConsumed(
-				consumption = c,
-				onClick = { onConsumptionAction(c.id) }
-			)
+		floatingActionButton = { FloatingActionButton(onClick = onAddAction) { Icon(Icons.Rounded.Add, "Add") } },
+		floatingActionButtonPosition = FabPosition.EndOverlay,
+	) { padding ->
+		LazyColumn(
+			modifier = Modifier.fillMaxSize(),
+			contentPadding = PaddingValues( // FIXME: PaddingValues causes frame skip during scroll
+				start = padding.calculateStartPadding(LocalLayoutDirection.current),
+				top = padding.calculateTopPadding(),
+				end = padding.calculateEndPadding(LocalLayoutDirection.current),
+				bottom = padding.calculateBottomPadding() + (56.dp + 32.dp) // TODO: Find way to calculate FAB size
+			),
+			horizontalAlignment = Alignment.CenterHorizontally,
+			verticalArrangement = Arrangement.spacedBy(8.dp)
+		) {
+			item {
+				ConsumptionProgress(
+					modifier = Modifier
+						.aspectRatio(1f)
+						.fillMaxWidth()
+						.padding(horizontal = 24.dp)
+						.padding(top = 66.dp, bottom = 24.dp),
+					current = uiState.value.consumedKcal,
+					goal = uiState.value.goal,
+					onGoalAction = onGoalAction
+				)
+			}
+
+			items(
+				items = uiState.value.consumptions,
+				key = { it.id },
+				contentType = { it::class }
+			) { c ->
+				ItemConsumed(
+					consumption = c,
+					onClick = { onConsumptionAction(c.id) }
+				)
+			}
 		}
 	}
 }
