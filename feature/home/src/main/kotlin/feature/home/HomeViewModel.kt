@@ -24,7 +24,7 @@ internal class HomeViewModel(private val repository: Repository) : ViewModel() {
 		}
 
 		viewModelScope.launch {
-			repository.observeConsumptions(LocalDate.now().minusDays(4)).collect { consumptions ->
+			repository.observeConsumptions(LocalDate.now()).collect { consumptions ->
 				_uiState.update {
 					it.copy(
 						consumedKcal = consumptions.fold(0) { kcal, c -> kcal + c.kcal },
