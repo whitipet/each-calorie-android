@@ -1,13 +1,13 @@
 [versions]
-agp = "8.5.0-alpha08"                         # https://mvnrepository.com/artifact/com.android.tools.build/gradle                            https://developer.android.com/studio/releases/gradle-plugin
-r8 = "8.6.2-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
+agp = "8.5.0-beta01"                          # https://mvnrepository.com/artifact/com.android.tools.build/gradle                            https://developer.android.com/studio/releases/gradle-plugin
+r8 = "8.6.3-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
 bundleTool = "1.16.0"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
 
-kotlin = "2.0.0-RC2"                          # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases
+kotlin = "2.0.0-RC3"                          # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases
 
-kotlinx-coroutines = "1.8.1-Beta"             # https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core             https://github.com/Kotlin/kotlinx.coroutines/releases
+kotlinx-coroutines = "1.8.1"                  # https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core             https://github.com/Kotlin/kotlinx.coroutines/releases
 
-ksp = "2.0.0-RC2-1.0.20"                      # https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing?repo=central    https://github.com/google/ksp
+ksp = "2.0.0-RC3-1.0.20"                      # https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing?repo=central    https://github.com/google/ksp
 
 androidx-activity = "1.9.0"                   # https://mvnrepository.com/artifact/androidx.activity/activity                                https://developer.android.com/jetpack/androidx/releases/activity
 androidx-annotation = "1.8.0-rc01"            # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
@@ -39,7 +39,7 @@ androidx-vectorDrawable = "1.2.0"             # https://mvnrepository.com/artifa
 androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifact/androidx.versionedparcelable/versionedparcelable          https://developer.android.com/jetpack/androidx/releases/versionedparcelable
 androidx-window = "1.3.0-beta02"              # https://mvnrepository.com/artifact/androidx.window/window                                    https://developer.android.com/jetpack/androidx/releases/window
 
-google-material = "1.13.0-alpha01"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
+google-material = "1.13.0-alpha02"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
 
 koin = "3.6.0-Beta3"                          # https://mvnrepository.com/artifact/io.insert-koin/koin-core                                  https://github.com/InsertKoinIO/koin
 jetBrainsAnnotations = "24.1.0"               # https://mvnrepository.com/artifact/org.jetbrains/annotations                                 https://github.com/JetBrains/java-annotations
