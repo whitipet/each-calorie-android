@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.0-beta01"                          # https://mvnrepository.com/artifact/com.android.tools.build/gradle                            https://developer.android.com/studio/releases/gradle-plugin
+agp = "8.6.0-alpha01"                         # https://mvnrepository.com/artifact/com.android.tools.build/gradle                            https://developer.android.com/studio/releases/gradle-plugin
 r8 = "8.6.3-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
 bundleTool = "1.16.0"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
 
@@ -10,34 +10,34 @@ kotlinx-coroutines = "1.8.1"                  # https://mvnrepository.com/artifa
 ksp = "2.0.0-RC3-1.0.20"                      # https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing?repo=central    https://github.com/google/ksp
 
 androidx-activity = "1.9.0"                   # https://mvnrepository.com/artifact/androidx.activity/activity                                https://developer.android.com/jetpack/androidx/releases/activity
-androidx-annotation = "1.8.0-rc01"            # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
+androidx-annotation = "1.8.0"                 # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
 androidx-annotationExp = "1.4.1"              # https://mvnrepository.com/artifact/androidx.annotation/annotation-experimental               https://developer.android.com/jetpack/androidx/releases/annotation
-androidx-appCompat = "1.7.0-beta01"           # https://mvnrepository.com/artifact/androidx.appcompat/appcompat                              https://developer.android.com/jetpack/androidx/releases/appcompat
+androidx-appCompat = "1.7.0-rc01"             # https://mvnrepository.com/artifact/androidx.appcompat/appcompat                              https://developer.android.com/jetpack/androidx/releases/appcompat
 androidx-arch = "2.2.0"                       # https://mvnrepository.com/artifact/androidx.arch.core/core-common                            https://developer.android.com/jetpack/androidx/releases/arch
 androidx-collection = "1.4.0"                 # https://mvnrepository.com/artifact/androidx.collection/collection                            https://developer.android.com/jetpack/androidx/releases/collection
-androidx-compose-adaptive = "1.0.0-alpha12"   # https://mvnrepository.com/artifact/androidx.compose.material3.adaptive/adaptive
-androidx-compose-animation = "1.7.0-alpha08"  # https://mvnrepository.com/artifact/androidx.compose.animation/animation                      https://developer.android.com/jetpack/androidx/releases/compose-animation
-androidx-compose-foundation = "1.7.0-alpha08" # https://mvnrepository.com/artifact/androidx.compose.foundation/foundation                    https://developer.android.com/jetpack/androidx/releases/compose-foundation
-androidx-compose-material3 = "1.3.0-alpha06"  # https://mvnrepository.com/artifact/androidx.compose.material3/material3                      https://developer.android.com/jetpack/androidx/releases/compose-material3
-androidx-compose-material = "1.7.0-alpha08"   # https://mvnrepository.com/artifact/androidx.compose.material/material                        https://developer.android.com/jetpack/androidx/releases/compose-material
-androidx-compose-runtime = "1.7.0-alpha08"    # https://mvnrepository.com/artifact/androidx.compose.runtime/runtime                          https://developer.android.com/jetpack/androidx/releases/compose-runtime
-androidx-compose-ui = "1.7.0-alpha08"         # https://mvnrepository.com/artifact/androidx.compose.ui/ui                                    https://developer.android.com/jetpack/androidx/releases/compose-ui
+androidx-compose-adaptive = "1.0.0-beta01"    # https://mvnrepository.com/artifact/androidx.compose.material3.adaptive/adaptive              https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
+androidx-compose-animation = "1.7.0-beta01"   # https://mvnrepository.com/artifact/androidx.compose.animation/animation                      https://developer.android.com/jetpack/androidx/releases/compose-animation
+androidx-compose-foundation = "1.7.0-beta01"  # https://mvnrepository.com/artifact/androidx.compose.foundation/foundation                    https://developer.android.com/jetpack/androidx/releases/compose-foundation
+androidx-compose-material3 = "1.3.0-beta01"   # https://mvnrepository.com/artifact/androidx.compose.material3/material3                      https://developer.android.com/jetpack/androidx/releases/compose-material3
+androidx-compose-material = "1.7.0-beta01"    # https://mvnrepository.com/artifact/androidx.compose.material/material                        https://developer.android.com/jetpack/androidx/releases/compose-material
+androidx-compose-runtime = "1.7.0-beta01"     # https://mvnrepository.com/artifact/androidx.compose.runtime/runtime                          https://developer.android.com/jetpack/androidx/releases/compose-runtime
+androidx-compose-ui = "1.7.0-beta01"          # https://mvnrepository.com/artifact/androidx.compose.ui/ui                                    https://developer.android.com/jetpack/androidx/releases/compose-ui
 androidx-constraintLayout = "2.2.0-alpha13"   # https://mvnrepository.com/artifact/androidx.constraintlayout/constraintlayout                https://developer.android.com/jetpack/androidx/releases/constraintlayout
 androidx-coordinatorLayout = "1.3.0-alpha02"  # https://mvnrepository.com/artifact/androidx.coordinatorlayout/coordinatorlayout              https://developer.android.com/jetpack/androidx/releases/coordinatorlayout
 androidx-core = "1.14.0-alpha01"              # https://mvnrepository.com/artifact/androidx.core/core                                        https://developer.android.com/jetpack/androidx/releases/core
 androidx-customView = "1.2.0-alpha02"         # https://mvnrepository.com/artifact/androidx.customview/customview                            https://developer.android.com/jetpack/androidx/releases/customview
 androidx-drawerLayout = "1.2.0"               # https://mvnrepository.com/artifact/androidx.drawerlayout/drawerlayout                        https://developer.android.com/jetpack/androidx/releases/drawerlayout
-androidx-fragment = "1.8.0-alpha02"           # https://mvnrepository.com/artifact/androidx.fragment/fragment                                https://developer.android.com/jetpack/androidx/releases/fragment
-androidx-lifecycle = "2.8.0-rc01"             # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-common                       https://developer.android.com/jetpack/androidx/releases/lifecycle
+androidx-fragment = "1.8.0-beta01"            # https://mvnrepository.com/artifact/androidx.fragment/fragment                                https://developer.android.com/jetpack/androidx/releases/fragment
+androidx-lifecycle = "2.8.0"                  # https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-common                       https://developer.android.com/jetpack/androidx/releases/lifecycle
 androidx-loader = "1.1.0"                     # https://mvnrepository.com/artifact/androidx.loader/loader                                    https://developer.android.com/jetpack/androidx/releases/loader
 androidx-localBroadcastManager = "1.1.0"      # https://mvnrepository.com/artifact/androidx.localbroadcastmanager/localbroadcastmanager      https://developer.android.com/jetpack/androidx/releases/localbroadcastmanager
-androidx-navigation = "2.8.0-alpha08"         # https://mvnrepository.com/artifact/androidx.navigation/navigation-common                     https://developer.android.com/jetpack/androidx/releases/navigation
-androidx-room = "2.7.0-alpha01"               # https://mvnrepository.com/artifact/androidx.room/room-runtime                                https://developer.android.com/jetpack/androidx/releases/room
+androidx-navigation = "2.8.0-beta01"          # https://mvnrepository.com/artifact/androidx.navigation/navigation-common                     https://developer.android.com/jetpack/androidx/releases/navigation
+androidx-room = "2.7.0-alpha02"               # https://mvnrepository.com/artifact/androidx.room/room-runtime                                https://developer.android.com/jetpack/androidx/releases/room
 androidx-savedState = "1.2.1"                 # https://mvnrepository.com/artifact/androidx.savedstate/savedstate                            https://developer.android.com/jetpack/androidx/releases/savedstate
-androidx-sqlite = "2.5.0-alpha01"             # https://mvnrepository.com/artifact/androidx.sqlite/sqlite                                    https://developer.android.com/jetpack/androidx/releases/sqlite
+androidx-sqlite = "2.5.0-alpha02"             # https://mvnrepository.com/artifact/androidx.sqlite/sqlite                                    https://developer.android.com/jetpack/androidx/releases/sqlite
 androidx-vectorDrawable = "1.2.0"             # https://mvnrepository.com/artifact/androidx.vectordrawable/vectordrawable                    https://developer.android.com/jetpack/androidx/releases/vectordrawable
 androidx-versionedParcelable = "1.2.0"        # https://mvnrepository.com/artifact/androidx.versionedparcelable/versionedparcelable          https://developer.android.com/jetpack/androidx/releases/versionedparcelable
-androidx-window = "1.3.0-beta02"              # https://mvnrepository.com/artifact/androidx.window/window                                    https://developer.android.com/jetpack/androidx/releases/window
+androidx-window = "1.3.0-rc01"                # https://mvnrepository.com/artifact/androidx.window/window                                    https://developer.android.com/jetpack/androidx/releases/window
 
 google-material = "1.13.0-alpha02"            # https://mvnrepository.com/artifact/com.google.android.material/material                      https://github.com/material-components/material-components-android/releases
 
@@ -54,7 +54,7 @@ kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotl
 ksp = { id = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
 #noinspection SimilarGradleDependency
 compose = { id = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
-#noinspection SimilarGradleDependency
+#noinspection SimilarGradleDependency, GradlePluginVersion
 bundleTool = { id = "com.android.tools.build:bundletool", version.ref = "bundleTool" }
 
 [libraries]
