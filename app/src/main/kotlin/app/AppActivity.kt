@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
 import androidx.compose.runtime.Composable
 import androidx.core.graphics.ColorUtils
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import feature.consumption.consumptionScreen
@@ -63,8 +64,12 @@ private fun App() {
 			onFoodBookAction = { navController.showFoodBookScreen() },
 			onAddConsumptionAction = { navController.navigateToConsumption() },
 		)
-		consumptionScreen(navController)
-		setGoalDialog(navController)
-		foodBookScreen(navController)
+		consumptionScreen { navController.closeScreen(it) }
+		setGoalDialog { navController.closeScreen(it) }
+		foodBookScreen { navController.closeScreen(it) }
 	}
+}
+
+private fun NavHostController.closeScreen(route: String) {
+	if (!popBackStack(route, inclusive = true, saveState = true)) currentDestination?.id?.let { navigate(it) }
 }

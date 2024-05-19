@@ -8,17 +8,13 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 
 private const val FoodBookRoute = "food_book"
 
-fun NavGraphBuilder.foodBookScreen(navController: NavController) = composable(FoodBookRoute) {
-	fun closeScreen() {
-		// FIXME: Lag during fast click
-		if (!navController.popBackStack(FoodBookRoute, inclusive = true, saveState = true))
-			navController.currentDestination?.id?.let { navController.navigate(it) }
-	}
-
+fun NavGraphBuilder.foodBookScreen(
+	onCloseScreenAction: (route: String) -> Unit = {},
+) = composable(FoodBookRoute) {
 	val vm: FoodBookViewModel = koinNavViewModel()
 	FoodBookScreen(
 		uiState = vm.uiState.collectAsStateWithLifecycle(),
-		onBackAction = { closeScreen() },
+		onBackAction = { onCloseScreenAction(FoodBookRoute) },
 		onAddAction = {},
 	)
 }

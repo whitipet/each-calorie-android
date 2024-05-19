@@ -11,31 +11,27 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 private const val ConsumptionRouteBase = "consumption"
 private const val argId = "id"
 
-fun NavGraphBuilder.consumptionScreen(navController: NavController) = composable(
+fun NavGraphBuilder.consumptionScreen(
+	onCloseScreenAction: (route: String) -> Unit = {},
+) = composable(
 	"$ConsumptionRouteBase?$argId={$argId}",
 	deepLinks = listOf(navDeepLink {
 		uriPattern = "ec://${ConsumptionRouteBase}"
 	})
 ) {
-	fun closeScreen() {
-		// FIXME: Lag during fast click
-		if (!navController.popBackStack(ConsumptionRouteBase, inclusive = true, saveState = true))
-			navController.currentDestination?.id?.let { navController.navigate(it) }
-	}
-
 	val vm: ConsumptionViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	ConsumptionScreen(
 		uiState = uiState,
-		onBackAction = ::closeScreen,
+		onBackAction = { onCloseScreenAction(ConsumptionRouteBase) },
 		updateKcalAction = vm::updateKcal,
 		onSaveAction = {
 			vm.saveConsumption()
-			closeScreen()
+			onCloseScreenAction(ConsumptionRouteBase)
 		},
 		onDeleteAction = {
 			vm.deleteConsumption()
-			closeScreen()
+			onCloseScreenAction(ConsumptionRouteBase)
 		}
 	)
 }
