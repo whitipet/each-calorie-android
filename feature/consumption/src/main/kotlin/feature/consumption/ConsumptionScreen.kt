@@ -43,6 +43,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -85,10 +86,15 @@ internal fun ConsumptionScreen(
 	onSaveAction: () -> Unit,
 	onDeleteAction: () -> Unit,
 ) {
+	val imeController = LocalSoftwareKeyboardController.current
+
 	Scaffold(
 		floatingActionButtonPosition = FabPosition.End,
 		floatingActionButton = {
-			FloatingActionButton(onClick = { onSaveAction() }) {
+			FloatingActionButton(onClick = {
+				imeController?.hide()
+				onSaveAction()
+			}) {
 				Icon(Icons.Rounded.Check, "Save")
 			}
 		}
@@ -155,7 +161,6 @@ internal fun ConsumptionScreen(
 			}
 			//endregion Date + time
 
-			// TODO: Clear focus on ime close
 			val focusRequester = remember { FocusRequester() }
 			OutlinedTextField(
 				modifier = Modifier
@@ -171,7 +176,10 @@ internal fun ConsumptionScreen(
 					keyboardType = KeyboardType.Number,
 					imeAction = ImeAction.Done
 				),
-				keyboardActions = KeyboardActions(onDone = { onSaveAction() }),
+				keyboardActions = KeyboardActions(onDone = {
+					imeController?.hide()
+					onSaveAction()
+				}),
 				isError = uiState.value.isError,
 				supportingText = if (uiState.value.isError) {
 					{ Text("Incorrect value") }
@@ -195,7 +203,10 @@ internal fun ConsumptionScreen(
 				modifier = Modifier
 					.padding(padding)
 					.padding(4.dp),
-				onClick = { onBackAction() }) {
+				onClick = {
+					imeController?.hide()
+					onBackAction()
+				}) {
 				Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
 			}
 
@@ -204,7 +215,10 @@ internal fun ConsumptionScreen(
 					modifier = Modifier
 						.padding(padding)
 						.padding(4.dp),
-					onClick = { onDeleteAction() }) {
+					onClick = {
+						imeController?.hide()
+						onDeleteAction()
+					}) {
 					Icon(Icons.Rounded.Delete, "Delete")
 				}
 		}
