@@ -36,7 +36,7 @@ import project.ui.theme.Theme
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview() = Theme {
+private fun SetGoalDialogPreview() = Theme {
 	SetGoalDialog(
 		uiState = remember {
 			mutableStateOf(
@@ -59,7 +59,7 @@ internal fun SetGoalDialog(
 	updateKcalAction: (kcal: Int) -> Unit,
 	onDismissAction: () -> Unit,
 	onSaveAction: () -> Unit,
-) = BasicAlertDialog(onDismissRequest = { onDismissAction() }) {
+) = BasicAlertDialog(onDismissRequest = onDismissAction) {
 	Card(
 		modifier = Modifier
 			.fillMaxWidth()
