@@ -17,6 +17,8 @@ import feature.consumption.consumptionScreen
 import feature.consumption.navigateToConsumption
 import feature.food_book.foodBookScreen
 import feature.food_book.showFoodBookScreen
+import feature.food_book_add.foodBookAddDialog
+import feature.food_book_add.showFoodBookAddDialog
 import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
@@ -66,7 +68,11 @@ private fun App() {
 		)
 		consumptionScreen { navController.closeScreen(it) }
 		setGoalDialog { navController.closeScreen(it) }
-		foodBookScreen { navController.closeScreen(it) }
+		foodBookScreen(
+			onCloseScreenAction = { navController.closeScreen(it) },
+			onAddAction = { navController.showFoodBookAddDialog() }
+		)
+		foodBookAddDialog { navController.closeScreen(it) }
 	}
 }
 

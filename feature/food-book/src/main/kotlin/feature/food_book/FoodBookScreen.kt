@@ -73,7 +73,7 @@ internal fun FoodBookScreen(
 		},
 		floatingActionButtonPosition = FabPosition.End,
 		floatingActionButton = {
-			FloatingActionButton(onClick = { onAddAction() }) {
+			FloatingActionButton(onClick = onAddAction) {
 				Icon(Icons.Rounded.Add, "Add")
 			}
 		}

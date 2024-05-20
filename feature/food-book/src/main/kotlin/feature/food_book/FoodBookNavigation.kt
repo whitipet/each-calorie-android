@@ -10,12 +10,13 @@ private const val FoodBookRoute = "food_book"
 
 fun NavGraphBuilder.foodBookScreen(
 	onCloseScreenAction: (route: String) -> Unit = {},
+	onAddAction: () -> Unit = {},
 ) = composable(FoodBookRoute) {
 	val vm: FoodBookViewModel = koinNavViewModel()
 	FoodBookScreen(
 		uiState = vm.uiState.collectAsStateWithLifecycle(),
 		onBackAction = { onCloseScreenAction(FoodBookRoute) },
-		onAddAction = {},
+		onAddAction = onAddAction,
 	)
 }
 
