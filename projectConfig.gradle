@@ -13,7 +13,7 @@ ext.config = [
 		compileSdkExtensionVersion: 11,
 		targetSdkVersion          : 34,
 
-		buildToolsVersion         : "35.0.0-rc3",
+		buildToolsVersion         : "35.0.0-rc4",
 
 		supportedLocales          : ["en"],
 		availableAbi              : ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"],
