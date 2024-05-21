@@ -3,11 +3,11 @@ agp = "8.6.0-alpha02"                         # https://mvnrepository.com/artifa
 r8 = "8.6.4-dev"                              # https://r8.googlesource.com/r8/+/refs/heads/8.6                                              https://r8.googlesource.com/r8
 bundleTool = "1.16.0"                         # https://mvnrepository.com/artifact/com.android.tools.build/bundletool                        https://github.com/google/bundletool
 
-kotlin = "2.0.0-RC3"                          # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases
+kotlin = "2.0.0"                              # https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib                        https://blog.jetbrains.com/kotlin/category/releases
 
 kotlinx-coroutines = "1.8.1"                  # https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core             https://github.com/Kotlin/kotlinx.coroutines/releases
 
-ksp = "2.0.0-RC3-1.0.20"                      # https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing?repo=central    https://github.com/google/ksp
+ksp = "2.0.0-1.0.21"                          # https://mvnrepository.com/artifact/com.google.devtools.ksp/symbol-processing?repo=central    https://github.com/google/ksp
 
 androidx-activity = "1.9.0"                   # https://mvnrepository.com/artifact/androidx.activity/activity                                https://developer.android.com/jetpack/androidx/releases/activity
 androidx-annotation = "1.8.0"                 # https://mvnrepository.com/artifact/androidx.annotation/annotation                            https://developer.android.com/jetpack/androidx/releases/annotation
