@@ -3,20 +3,22 @@ package feature.food_book_add
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.dialog
+import androidx.navigation.compose.composable
 import org.koin.androidx.compose.navigation.koinNavViewModel
 
 private const val FoodBookAddRoute = "food_book_add"
 
-fun NavGraphBuilder.foodBookAddDialog(
+fun NavGraphBuilder.foodBookAddScreen(
 	onCloseScreenAction: (route: String) -> Unit = {},
-) = dialog(FoodBookAddRoute) {
+) = composable(FoodBookAddRoute) {
 	val vm: FoodBookAddViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
-	FoodBookAddDialog(
+	FoodBookAddScreen(
 		uiState = uiState,
-		onDismissAction = { onCloseScreenAction(FoodBookAddRoute) },
+		updateNameAction = vm::updateName,
+		onSaveAction = { onCloseScreenAction(FoodBookAddRoute) },
+		onCloseAction = { onCloseScreenAction(FoodBookAddRoute) },
 	)
 }
 
-fun NavController.showFoodBookAddDialog() = navigate(FoodBookAddRoute)
+fun NavController.showFoodBookAddScreen() = navigate(FoodBookAddRoute)
