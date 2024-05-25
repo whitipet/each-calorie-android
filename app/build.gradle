@@ -26,4 +26,5 @@ dependencies {
 	implementation dep.androidx.navigation.compose
 
 	implementation dep.koin.android
+	implementation dep.koin.compose
 }

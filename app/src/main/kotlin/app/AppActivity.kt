@@ -23,6 +23,8 @@ import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
 import feature.set_goal.showSetGoalDialog
+import org.koin.android.java.KoinAndroidApplication
+import org.koin.androidx.compose.KoinAndroidContext
 import project.ui.theme.Theme
 
 class AppActivity : ComponentActivity() {
@@ -49,12 +51,13 @@ class AppActivity : ComponentActivity() {
 			enableEdgeToEdge()
 		}
 
-		setContent { Theme { App() } }
+		setContent { Theme { KoinAndroidContext { App() } } }
 	}
 }
 
 @Composable
 private fun App() {
+	KoinAndroidApplication
 	val navController = rememberNavController()
 	NavHost(
 		navController = navController,
