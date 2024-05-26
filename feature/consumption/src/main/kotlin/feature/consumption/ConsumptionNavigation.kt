@@ -23,7 +23,7 @@ fun NavGraphBuilder.consumptionScreen(
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	ConsumptionScreen(
 		uiState = uiState,
-		onBackAction = { onCloseScreenAction(ConsumptionRouteBase) },
+		onCloseAction = { onCloseScreenAction(ConsumptionRouteBase) },
 		updateKcalAction = vm::updateKcal,
 		onSaveAction = {
 			vm.saveConsumption()

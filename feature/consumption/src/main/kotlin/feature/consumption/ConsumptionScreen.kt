@@ -1,11 +1,9 @@
 package feature.consumption
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
@@ -14,21 +12,20 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DateRange
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.Refresh
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FilledTonalIconButton
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -42,12 +39,14 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import project.ui.theme.Theme
@@ -71,42 +70,60 @@ private fun ConsumptionScreenPreview() = Theme {
 				)
 			)
 		},
-		onBackAction = {},
+		onCloseAction = {},
 		updateKcalAction = {},
 		onSaveAction = {},
 		onDeleteAction = {},
 	)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ConsumptionScreen(
 	uiState: State<ConsumptionUIState>,
-	onBackAction: () -> Unit,
+	onCloseAction: () -> Unit,
 	updateKcalAction: (kcal: Int) -> Unit,
 	onSaveAction: () -> Unit,
 	onDeleteAction: () -> Unit,
 ) {
+	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 	val imeController = LocalSoftwareKeyboardController.current
 
 	Scaffold(
-		floatingActionButtonPosition = FabPosition.End,
-		floatingActionButton = {
-			FloatingActionButton(onClick = {
-				imeController?.hide()
-				onSaveAction()
-			}) {
-				Icon(Icons.Rounded.Check, "Save")
-			}
-		}
+		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+		topBar = {
+			TopAppBar(
+				navigationIcon = {
+					IconButton(onClick = {
+						imeController?.hide()
+						onCloseAction()
+					}) { Icon(Icons.Rounded.Close, "Close") }
+				},
+				title = { Text("Consumption", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+				actions = {
+					if (uiState.value.id != null) {
+						TextButton(onClick = {
+							imeController?.hide()
+							onDeleteAction()
+						}) { Text("Delete") }
+					}
+					TextButton(
+						enabled = !uiState.value.isError,
+						onClick = {
+							imeController?.hide()
+							onSaveAction()
+						}) { Text("Save") }
+				},
+				scrollBehavior = scrollBehavior,
+			)
+		},
 	) { padding ->
-		val fabSizeWithOffset = 56.dp + 32.dp // TODO: Find way to calculate
 		Column(
 			modifier = Modifier
-				.fillMaxSize()
-				.verticalScroll(rememberScrollState())
+				.fillMaxWidth()
 				.padding(padding)
-				.padding(top = 56.dp, bottom = fabSizeWithOffset)
-				.padding(horizontal = 16.dp, vertical = 8.dp),
+				.padding(horizontal = 16.dp)
+				.verticalScroll(rememberScrollState()),
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
 			//region Date + time
@@ -177,13 +194,10 @@ internal fun ConsumptionScreen(
 					imeAction = ImeAction.Done
 				),
 				keyboardActions = KeyboardActions(onDone = {
+					if (uiState.value.isError) return@KeyboardActions
 					imeController?.hide()
 					onSaveAction()
 				}),
-				isError = uiState.value.isError,
-				supportingText = if (uiState.value.isError) {
-					{ Text("Incorrect value") }
-				} else null,
 				// FIXME: Selection
 				value = with(uiState.value.kcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
 				onValueChange = {
@@ -193,34 +207,6 @@ internal fun ConsumptionScreen(
 				}
 			)
 			LaunchedEffect(Unit) { focusRequester.requestFocus() }
-		}
-
-		Row(
-			modifier = Modifier.fillMaxWidth(),
-			horizontalArrangement = Arrangement.SpaceBetween
-		) {
-			FilledTonalIconButton(
-				modifier = Modifier
-					.padding(padding)
-					.padding(4.dp),
-				onClick = {
-					imeController?.hide()
-					onBackAction()
-				}) {
-				Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
-			}
-
-			if (uiState.value.id != null)
-				IconButton(
-					modifier = Modifier
-						.padding(padding)
-						.padding(4.dp),
-					onClick = {
-						imeController?.hide()
-						onDeleteAction()
-					}) {
-					Icon(Icons.Rounded.Delete, "Delete")
-				}
 		}
 	}
 }

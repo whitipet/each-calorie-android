@@ -52,7 +52,7 @@ internal class ConsumptionViewModel(
 	fun updateKcal(kcal: Int) = _uiState.update {
 		it.copy(
 			kcal = kcal,
-			isError = false
+			isError = kcal < 1
 		)
 	}
 }
@@ -61,5 +61,5 @@ internal data class ConsumptionUIState(
 	val id: Long? = null,
 	val time: Instant = Instant.now(),
 	val kcal: Int = 0,
-	val isError: Boolean = false,
+	val isError: Boolean = true,
 )
