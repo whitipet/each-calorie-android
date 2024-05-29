@@ -1,5 +1,10 @@
 package feature.food_book
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,24 +43,33 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import project.ui.theme.Theme
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 private fun FoodBookScreenPreview() = Theme {
-	val uiState = FoodBookUIState()
-	FoodBookScreen(
-		uiState = remember { mutableStateOf(uiState) },
-		onBackAction = {},
-		onAddAction = {},
-	)
+	SharedTransitionLayout {
+		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
+			if (!targetState) return@AnimatedContent
+			FoodBookScreen(
+				uiState = remember { mutableStateOf(FoodBookUIState()) },
+				onBackAction = {},
+				onAddAction = {},
+				sharedTransitionScope = this@SharedTransitionLayout,
+				animatedVisibilityScope = this@AnimatedContent,
+			)
+		}
+	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun FoodBookScreen(
 	uiState: State<FoodBookUIState>,
 	onBackAction: () -> Unit,
 	onAddAction: () -> Unit,
-) {
+	sharedTransitionScope: SharedTransitionScope,
+	animatedVisibilityScope: AnimatedVisibilityScope,
+) = with(sharedTransitionScope) {
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
 	Scaffold(
@@ -64,18 +78,22 @@ internal fun FoodBookScreen(
 			TopAppBar(
 				title = { Text("Food Book", maxLines = 1, overflow = TextOverflow.Ellipsis) },
 				navigationIcon = {
-					IconButton(onClick = onBackAction) {
-						Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
-					}
+					IconButton(
+						onClick = onBackAction
+					) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back") }
 				},
 				scrollBehavior = scrollBehavior,
 			)
 		},
 		floatingActionButtonPosition = FabPosition.End,
 		floatingActionButton = {
-			FloatingActionButton(onClick = onAddAction) {
-				Icon(Icons.Rounded.Add, "Add")
-			}
+			FloatingActionButton(
+				modifier = Modifier.sharedBounds(
+					rememberSharedContentState(key = "bounds"),
+					animatedVisibilityScope = animatedVisibilityScope,
+				),
+				onClick = onAddAction
+			) { Icon(Icons.Rounded.Add, "Add") }
 		}
 	) { padding ->
 		LazyColumn(

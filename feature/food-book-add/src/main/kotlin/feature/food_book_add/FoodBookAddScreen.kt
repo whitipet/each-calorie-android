@@ -1,5 +1,10 @@
 package feature.food_book_add
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,34 +43,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import project.ui.theme.Theme
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun FoodBookAddScreenPreview() = Theme {
-	FoodBookAddScreen(
-		uiState = remember {
-			mutableStateOf(
-				FoodBookAddUIState()
+	SharedTransitionLayout {
+		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
+			if (!targetState) return@AnimatedContent
+			FoodBookAddScreen(
+				uiState = remember { mutableStateOf(FoodBookAddUIState()) },
+				updateNameAction = {},
+				onSaveAction = {},
+				onCloseAction = {},
+				sharedTransitionScope = this@SharedTransitionLayout,
+				animatedVisibilityScope = this@AnimatedContent,
 			)
-		},
-		updateNameAction = {},
-		onSaveAction = {},
-		onCloseAction = {},
-	)
+		}
+	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun FoodBookAddScreen(
 	uiState: State<FoodBookAddUIState>,
 	updateNameAction: (name: String) -> Unit,
 	onSaveAction: () -> Unit,
 	onCloseAction: () -> Unit,
-) {
+	sharedTransitionScope: SharedTransitionScope,
+	animatedVisibilityScope: AnimatedVisibilityScope,
+) = with(sharedTransitionScope) {
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 	val imeController = LocalSoftwareKeyboardController.current
 
 	Scaffold(
-		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+		modifier = Modifier
+			.nestedScroll(scrollBehavior.nestedScrollConnection)
+			.sharedBounds(
+				rememberSharedContentState(key = "bounds"),
+				animatedVisibilityScope = animatedVisibilityScope,
+			),
 		topBar = {
 			TopAppBar(
 				navigationIcon = {

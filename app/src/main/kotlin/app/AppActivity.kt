@@ -8,6 +8,8 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.ColorInt
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.core.graphics.ColorUtils
 import androidx.navigation.NavHostController
@@ -23,7 +25,6 @@ import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
 import feature.set_goal.showSetGoalDialog
-import org.koin.android.java.KoinAndroidApplication
 import org.koin.androidx.compose.KoinAndroidContext
 import project.ui.theme.Theme
 
@@ -55,9 +56,9 @@ class AppActivity : ComponentActivity() {
 	}
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun App() {
-	KoinAndroidApplication
+private fun App() = SharedTransitionLayout {
 	val navController = rememberNavController()
 	NavHost(
 		navController = navController,
@@ -69,13 +70,21 @@ private fun App() {
 			onFoodBookAction = { navController.showFoodBookScreen() },
 			onAddConsumptionAction = { navController.navigateToConsumption() },
 		)
-		consumptionScreen { navController.closeScreen(it) }
-		setGoalDialog { navController.closeScreen(it) }
+		consumptionScreen(
+			onCloseScreenAction = { navController.closeScreen(it) },
+		)
+		setGoalDialog(
+			onCloseScreenAction = { navController.closeScreen(it) }
+		)
 		foodBookScreen(
 			onCloseScreenAction = { navController.closeScreen(it) },
-			onAddAction = { navController.showFoodBookAddScreen() }
+			onAddAction = { navController.showFoodBookAddScreen() },
+			sharedTransitionScope = this@SharedTransitionLayout,
 		)
-		foodBookAddScreen { navController.closeScreen(it) }
+		foodBookAddScreen(
+			onCloseScreenAction = { navController.closeScreen(it) },
+			sharedTransitionScope = this@SharedTransitionLayout,
+		)
 	}
 }
 
