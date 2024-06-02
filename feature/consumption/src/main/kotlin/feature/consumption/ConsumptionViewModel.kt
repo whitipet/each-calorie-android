@@ -32,14 +32,8 @@ internal class ConsumptionViewModel(
 		}
 	}
 
-	fun saveConsumption() {
-		if (uiState.value.kcal < 1) {
-			_uiState.update { it.copy(isError = true) }
-			return
-		}
-		viewModelScope.launch {
-			with(uiState.value) { repository.saveConsumption(Consumption(id = id ?: 0, time = time, kcal = kcal)) }
-		}
+	fun saveConsumption() = viewModelScope.launch {
+		with(uiState.value) { repository.saveConsumption(Consumption(id = id ?: 0, time = time, kcal = kcal)) }
 	}
 
 	fun deleteConsumption() =
