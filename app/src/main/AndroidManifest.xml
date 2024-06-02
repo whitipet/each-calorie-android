@@ -29,6 +29,7 @@
 
 				<data android:scheme="ec"/>
 				<data android:host="consumption"/>
+				<data android:host="food_book"/>
 			</intent-filter>
 		</activity-alias>
 
