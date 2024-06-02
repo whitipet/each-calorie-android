@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
@@ -38,6 +40,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -120,6 +123,13 @@ internal fun FoodBookAddScreen(
 					.focusRequester(focusRequester),
 				label = { Text("Name") },
 				singleLine = true,
+				keyboardOptions = KeyboardOptions(
+					imeAction = ImeAction.Done
+				),
+				keyboardActions = KeyboardActions(onDone = {
+					imeController?.hide()
+					onSaveAction()
+				}),
 				value = uiState.value.name,
 				onValueChange = { updateNameAction(it) }
 			)

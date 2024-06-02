@@ -20,7 +20,10 @@ fun NavGraphBuilder.foodBookAddScreen(
 	FoodBookAddScreen(
 		uiState = uiState,
 		updateNameAction = vm::updateName,
-		onSaveAction = { onCloseScreenAction(FoodBookAddRoute) },
+		onSaveAction = {
+			vm.saveFood()
+			onCloseScreenAction(FoodBookAddRoute)
+		},
 		onCloseAction = { onCloseScreenAction(FoodBookAddRoute) },
 		sharedTransitionScope = sharedTransitionScope,
 		animatedVisibilityScope = this@composable,

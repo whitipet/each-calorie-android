@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import data.database.dao.ConsumptionDao
+import data.database.dao.FoodDao
 import data.database.dao.GoalDao
 import data.database.entity.Consumption
+import data.database.entity.Food
 import data.database.entity.Goal
 import kotlinx.coroutines.Dispatchers
 
 @Database(
 	entities = [
 		Goal::class,
+		Food::class,
 		Consumption::class,
 	],
 	version = 1
@@ -35,5 +38,6 @@ internal abstract class Database : RoomDatabase() {
 	}
 
 	abstract fun goalDao(): GoalDao
+	abstract fun foodDao(): FoodDao
 	abstract fun consumptionDao(): ConsumptionDao
 }
