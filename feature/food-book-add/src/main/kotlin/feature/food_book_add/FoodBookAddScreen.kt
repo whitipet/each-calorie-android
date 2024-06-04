@@ -30,7 +30,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,7 +53,7 @@ private fun FoodBookAddScreenPreview() = Theme {
 		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
 			if (!targetState) return@AnimatedContent
 			FoodBookAddScreen(
-				uiState = remember { mutableStateOf(FoodBookAddUIState()) },
+				state = FoodBookAddUIState(),
 				updateNameAction = {},
 				onSaveAction = {},
 				onCloseAction = {},
@@ -68,7 +67,7 @@ private fun FoodBookAddScreenPreview() = Theme {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun FoodBookAddScreen(
-	uiState: State<FoodBookAddUIState>,
+	state: FoodBookAddUIState,
 	updateNameAction: (name: String) -> Unit,
 	onSaveAction: () -> Unit,
 	onCloseAction: () -> Unit,
@@ -77,7 +76,6 @@ internal fun FoodBookAddScreen(
 ) = with(sharedTransitionScope) {
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 	val imeController = LocalSoftwareKeyboardController.current
-
 	Scaffold(
 		modifier = Modifier
 			.nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -130,7 +128,7 @@ internal fun FoodBookAddScreen(
 					imeController?.hide()
 					onSaveAction()
 				}),
-				value = uiState.value.name,
+				value = state.name,
 				onValueChange = { updateNameAction(it) }
 			)
 			LaunchedEffect(Unit) { focusRequester.requestFocus() }

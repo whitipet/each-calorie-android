@@ -23,8 +23,9 @@ fun NavGraphBuilder.foodBookScreen(
 	})
 ) {
 	val vm: FoodBookViewModel = koinNavViewModel()
+	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	FoodBookScreen(
-		uiState = vm.uiState.collectAsStateWithLifecycle(),
+		state = uiState.value,
 		onBackAction = { onCloseScreenAction(FoodBookRoute) },
 		onAddAction = onAddAction,
 		sharedTransitionScope = sharedTransitionScope,

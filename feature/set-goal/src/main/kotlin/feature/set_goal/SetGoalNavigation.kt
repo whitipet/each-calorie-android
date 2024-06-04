@@ -14,7 +14,7 @@ fun NavGraphBuilder.setGoalDialog(
 	val vm: SetGoalModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	SetGoalDialog(
-		uiState = uiState,
+		state = uiState.value,
 		updateKcalAction = vm::updateKcal,
 		onDismissAction = { onCloseScreenAction(SetGoalRoute) },
 		onSaveAction = {

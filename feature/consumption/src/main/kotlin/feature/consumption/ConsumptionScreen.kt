@@ -28,7 +28,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,15 +60,11 @@ import java.util.Locale
 @Composable
 private fun ConsumptionScreenPreview() = Theme {
 	ConsumptionScreen(
-		uiState = remember {
-			mutableStateOf(
-				ConsumptionUIState(
-					id = 0,
-					kcal = 100,
-					isError = false
-				)
-			)
-		},
+		state = ConsumptionUIState(
+			id = 0,
+			kcal = 100,
+			isError = false
+		),
 		onCloseAction = {},
 		updateKcalAction = {},
 		onSaveAction = {},
@@ -80,7 +75,7 @@ private fun ConsumptionScreenPreview() = Theme {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ConsumptionScreen(
-	uiState: State<ConsumptionUIState>,
+	state: ConsumptionUIState,
 	onCloseAction: () -> Unit,
 	updateKcalAction: (kcal: Int) -> Unit,
 	onSaveAction: () -> Unit,
@@ -101,14 +96,14 @@ internal fun ConsumptionScreen(
 				},
 				title = { Text("Consumption", maxLines = 1, overflow = TextOverflow.Ellipsis) },
 				actions = {
-					if (uiState.value.id != null) {
+					if (state.id != null) {
 						TextButton(onClick = {
 							imeController?.hide()
 							onDeleteAction()
 						}) { Text("Delete") }
 					}
 					TextButton(
-						enabled = !uiState.value.isError,
+						enabled = !state.isError,
 						onClick = {
 							imeController?.hide()
 							onSaveAction()
@@ -148,7 +143,7 @@ internal fun ConsumptionScreen(
 							IsoChronology.INSTANCE,
 							Locale.getDefault()
 						)
-					).withZone(ZoneId.systemDefault()).format(uiState.value.time),
+					).withZone(ZoneId.systemDefault()).format(state.time),
 					onValueChange = {}
 				)
 				OutlinedTextField(
@@ -172,7 +167,7 @@ internal fun ConsumptionScreen(
 							IsoChronology.INSTANCE,
 							Locale.getDefault()
 						)
-					).withZone(ZoneId.systemDefault()).format(uiState.value.time),
+					).withZone(ZoneId.systemDefault()).format(state.time),
 					onValueChange = {}
 				)
 			}
@@ -194,12 +189,12 @@ internal fun ConsumptionScreen(
 					imeAction = ImeAction.Done
 				),
 				keyboardActions = KeyboardActions(onDone = {
-					if (uiState.value.isError) return@KeyboardActions
+					if (state.isError) return@KeyboardActions
 					imeController?.hide()
 					onSaveAction()
 				}),
 				// FIXME: Selection
-				value = with(uiState.value.kcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
+				value = with(state.kcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
 				onValueChange = {
 					val text = it.text
 					if (text.length >= 7) return@OutlinedTextField

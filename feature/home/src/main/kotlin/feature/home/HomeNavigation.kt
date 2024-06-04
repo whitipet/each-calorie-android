@@ -16,7 +16,7 @@ fun NavGraphBuilder.homeScreen(
 	val vm: HomeViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	HomeScreen(
-		uiState = uiState,
+		state = uiState.value,
 		onGoalAction = onGoalAction,
 		onConsumptionAction = onConsumptionAction,
 		onFoodBookAction = onFoodBookAction,

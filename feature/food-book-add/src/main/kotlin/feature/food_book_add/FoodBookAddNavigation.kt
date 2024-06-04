@@ -18,7 +18,7 @@ fun NavGraphBuilder.foodBookAddScreen(
 	val vm: FoodBookAddViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	FoodBookAddScreen(
-		uiState = uiState,
+		state = uiState.value,
 		updateNameAction = vm::updateName,
 		onSaveAction = {
 			vm.saveFood()

@@ -32,9 +32,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -67,25 +64,21 @@ import kotlin.random.Random
 @Composable
 private fun HomeScreenPreview() = Theme {
 	HomeScreen(
-		uiState = remember {
-			mutableStateOf(
-				HomeUIState(
-					goal = 2500,
-					consumedKcal = 600,
-					consumptions = buildList {
-						for (i in 1..20) {
-							add(
-								Consumption(
-									Random.nextLong(),
-									Instant.now().plusSeconds(Random.nextInt(Int.MIN_VALUE, Int.MAX_VALUE).toLong()),
-									Random.nextInt(0, 1000)
-								)
-							)
-						}
-					}
-				)
-			)
-		},
+		state = HomeUIState(
+			goal = 2500,
+			consumedKcal = 600,
+			consumptions = buildList {
+				for (i in 1..20) {
+					add(
+						Consumption(
+							Random.nextLong(),
+							Instant.now().plusSeconds(Random.nextInt(Int.MIN_VALUE, Int.MAX_VALUE).toLong()),
+							Random.nextInt(0, 1000)
+						)
+					)
+				}
+			}
+		),
 		onAddConsumptionAction = {},
 		onGoalAction = {},
 		onFoodBookAction = {},
@@ -96,7 +89,7 @@ private fun HomeScreenPreview() = Theme {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
-	uiState: State<HomeUIState>,
+	state: HomeUIState,
 	onGoalAction: () -> Unit,
 	onConsumptionAction: (consumptionId: Long) -> Unit,
 	onFoodBookAction: () -> Unit,
@@ -141,14 +134,14 @@ internal fun HomeScreen(
 						.fillMaxWidth()
 						.padding(horizontal = 24.dp)
 						.padding(top = 66.dp, bottom = 24.dp),
-					current = uiState.value.consumedKcal,
-					goal = uiState.value.goal,
+					current = state.consumedKcal,
+					goal = state.goal,
 					onGoalAction = onGoalAction
 				)
 			}
 
 			items(
-				items = uiState.value.consumptions,
+				items = state.consumptions,
 				key = { it.id },
 				contentType = { it::class }
 			) { c ->

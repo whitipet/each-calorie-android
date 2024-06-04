@@ -32,9 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -54,22 +51,20 @@ private fun FoodBookScreenPreview() = Theme {
 		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
 			if (!targetState) return@AnimatedContent
 			FoodBookScreen(
-				uiState = remember {
-					mutableStateOf(FoodBookUIState(
-						foods = buildList {
-							for (i in 1..20) {
-								add(
-									Food(
-										Random.nextLong(),
-										Random.nextInt().toString(),
-										100,
-										"grams"
-									)
+				state = FoodBookUIState(
+					foods = buildList {
+						for (i in 1..20) {
+							add(
+								Food(
+									Random.nextLong(),
+									Random.nextInt().toString(),
+									100,
+									"grams"
 								)
-							}
+							)
 						}
-					))
-				},
+					}
+				),
 				onBackAction = {},
 				onAddAction = {},
 				sharedTransitionScope = this@SharedTransitionLayout,
@@ -82,7 +77,7 @@ private fun FoodBookScreenPreview() = Theme {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 internal fun FoodBookScreen(
-	uiState: State<FoodBookUIState>,
+	state: FoodBookUIState,
 	onBackAction: () -> Unit,
 	onAddAction: () -> Unit,
 	sharedTransitionScope: SharedTransitionScope,
@@ -126,7 +121,7 @@ internal fun FoodBookScreen(
 			verticalArrangement = Arrangement.spacedBy(8.dp)
 		) {
 			items(
-				items = uiState.value.foods,
+				items = state.foods,
 				key = { it.id },
 				contentType = { it::class }
 			) { food ->

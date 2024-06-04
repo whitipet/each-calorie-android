@@ -19,8 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -38,14 +36,10 @@ import project.ui.theme.Theme
 @Composable
 private fun SetGoalDialogPreview() = Theme {
 	SetGoalDialog(
-		uiState = remember {
-			mutableStateOf(
-				SetGoalUIState(
-					kcal = 0,
-					isError = true,
-				)
-			)
-		},
+		state = SetGoalUIState(
+			kcal = 0,
+			isError = true,
+		),
 		updateKcalAction = {},
 		onDismissAction = {},
 		onSaveAction = {},
@@ -55,7 +49,7 @@ private fun SetGoalDialogPreview() = Theme {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SetGoalDialog(
-	uiState: State<SetGoalUIState>,
+	state: SetGoalUIState,
 	updateKcalAction: (kcal: Int) -> Unit,
 	onDismissAction: () -> Unit,
 	onSaveAction: () -> Unit,
@@ -91,7 +85,7 @@ internal fun SetGoalDialog(
 					imeAction = ImeAction.Done
 				),
 				// FIXME: Selection
-				value = with(uiState.value.kcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
+				value = with(state.kcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
 				onValueChange = {
 					val text = it.text
 					if (text.length >= 10) return@OutlinedTextField
@@ -114,7 +108,7 @@ internal fun SetGoalDialog(
 				}
 				Spacer(modifier = Modifier.width(8.dp))
 				TextButton(
-					enabled = !uiState.value.isError,
+					enabled = !state.isError,
 					onClick = { onSaveAction() },
 				) {
 					Text("Save")
