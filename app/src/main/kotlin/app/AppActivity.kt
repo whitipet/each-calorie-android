@@ -1,17 +1,12 @@
 package app
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.TypedValue
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.ColorInt
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
-import androidx.core.graphics.ColorUtils
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -31,27 +26,7 @@ import project.ui.theme.Theme
 class AppActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-
-		try {
-			val windowBackgroundResId = TypedValue().let {
-				theme.resolveAttribute(android.R.attr.windowBackground, it, true)
-				it.resourceId
-			}
-			@ColorInt val windowBackgroundColor: Int = resources.getColor(windowBackgroundResId, theme)
-			@ColorInt val statusBarColor: Int =
-				ColorUtils.setAlphaComponent(windowBackgroundColor, (255 * 0.7f).toInt())
-
-			val isDarkTheme = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-					Configuration.UI_MODE_NIGHT_YES
-			enableEdgeToEdge(
-				statusBarStyle =
-				if (isDarkTheme) SystemBarStyle.dark(statusBarColor)
-				else SystemBarStyle.light(statusBarColor, statusBarColor)
-			)
-		} catch (_: Exception) {
-			enableEdgeToEdge()
-		}
-
+		enableEdgeToEdge()
 		setContent { Theme { KoinAndroidContext { App() } } }
 	}
 }
