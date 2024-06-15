@@ -1,4 +1,4 @@
-package feature.food_book_add
+package feature.food
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -48,12 +48,12 @@ import project.ui.theme.Theme
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
-private fun FoodBookAddScreenPreview() = Theme {
+private fun FoodScreenPreview() = Theme {
 	SharedTransitionLayout {
 		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
 			if (!targetState) return@AnimatedContent
-			FoodBookAddScreen(
-				state = FoodBookAddUIState(),
+			FoodScreen(
+				state = FoodUIState(),
 				updateNameAction = {},
 				onSaveAction = {},
 				onCloseAction = {},
@@ -66,8 +66,8 @@ private fun FoodBookAddScreenPreview() = Theme {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-internal fun FoodBookAddScreen(
-	state: FoodBookAddUIState,
+internal fun FoodScreen(
+	state: FoodUIState,
 	updateNameAction: (name: String) -> Unit,
 	onSaveAction: () -> Unit,
 	onCloseAction: () -> Unit,
@@ -93,7 +93,7 @@ internal fun FoodBookAddScreen(
 						Icon(Icons.Rounded.Close, "Close")
 					}
 				},
-				title = { Text("New food", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+				title = { Text("Food", maxLines = 1, overflow = TextOverflow.Ellipsis) },
 				actions = {
 					TextButton(onClick = {
 						imeController?.hide()

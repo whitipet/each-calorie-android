@@ -1,4 +1,4 @@
-package feature.food_book_add
+package feature.food
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -8,26 +8,26 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.koin.androidx.compose.navigation.koinNavViewModel
 
-private const val FoodBookAddRoute = "food_book_add"
+private const val FoodRoute = "food_book_add"
 
 @OptIn(ExperimentalSharedTransitionApi::class)
-fun NavGraphBuilder.foodBookAddScreen(
+fun NavGraphBuilder.foodScreen(
 	onCloseScreenAction: (route: String) -> Unit = {},
 	sharedTransitionScope: SharedTransitionScope,
-) = composable(FoodBookAddRoute) {
-	val vm: FoodBookAddViewModel = koinNavViewModel()
+) = composable(FoodRoute) {
+	val vm: FoodViewModel = koinNavViewModel()
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
-	FoodBookAddScreen(
+	FoodScreen(
 		state = uiState.value,
 		updateNameAction = vm::updateName,
 		onSaveAction = {
 			vm.saveFood()
-			onCloseScreenAction(FoodBookAddRoute)
+			onCloseScreenAction(FoodRoute)
 		},
-		onCloseAction = { onCloseScreenAction(FoodBookAddRoute) },
+		onCloseAction = { onCloseScreenAction(FoodRoute) },
 		sharedTransitionScope = sharedTransitionScope,
 		animatedVisibilityScope = this@composable,
 	)
 }
 
-fun NavController.showFoodBookAddScreen() = navigate(FoodBookAddRoute)
+fun NavController.showFoodScreen() = navigate(FoodRoute)

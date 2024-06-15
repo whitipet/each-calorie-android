@@ -12,10 +12,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import feature.consumption.consumptionScreen
 import feature.consumption.navigateToConsumption
+import feature.food.foodScreen
+import feature.food.showFoodScreen
 import feature.food_book.foodBookScreen
 import feature.food_book.showFoodBookScreen
-import feature.food_book_add.foodBookAddScreen
-import feature.food_book_add.showFoodBookAddScreen
 import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
@@ -53,10 +53,10 @@ private fun App() = SharedTransitionLayout {
 		)
 		foodBookScreen(
 			onCloseScreenAction = { navController.closeScreen(it) },
-			onAddAction = { navController.showFoodBookAddScreen() },
+			onAddAction = { navController.showFoodScreen() },
 			sharedTransitionScope = this@SharedTransitionLayout,
 		)
-		foodBookAddScreen(
+		foodScreen(
 			onCloseScreenAction = { navController.closeScreen(it) },
 			sharedTransitionScope = this@SharedTransitionLayout,
 		)

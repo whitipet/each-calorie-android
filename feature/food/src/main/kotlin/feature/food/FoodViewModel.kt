@@ -1,4 +1,4 @@
-package feature.food_book_add
+package feature.food
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import project.entity.Food
 
-internal class FoodBookAddViewModel(private val repository: Repository) : ViewModel() {
+internal class FoodViewModel(private val repository: Repository) : ViewModel() {
 
-	private val _uiState: MutableStateFlow<FoodBookAddUIState> = MutableStateFlow(FoodBookAddUIState())
-	val uiState: StateFlow<FoodBookAddUIState> = _uiState.asStateFlow()
+	private val _uiState: MutableStateFlow<FoodUIState> = MutableStateFlow(FoodUIState())
+	val uiState: StateFlow<FoodUIState> = _uiState.asStateFlow()
 
 	fun updateName(name: String) = _uiState.update {
 		it.copy(name = name)
@@ -24,7 +24,7 @@ internal class FoodBookAddViewModel(private val repository: Repository) : ViewMo
 	}
 }
 
-internal data class FoodBookAddUIState(
+internal data class FoodUIState(
 	val name: String = "",
 	val size: Int = 100,
 	val units: String = "grams",
