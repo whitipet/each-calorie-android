@@ -1,5 +1,6 @@
 package feature.food
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,7 +35,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +49,11 @@ import project.ui.theme.Theme
 private fun FoodScreenPreview() = Theme {
 	FoodScreen(
 		state = FoodUIState(),
-		updateNameAction = {},
+		onNameChanged = {},
+		onCaloriesChanged = {},
+		onProtChanged = {},
+		onFatChanged = {},
+		onCarbsChanged = {},
 		onSaveAction = {},
 		onCloseAction = {},
 	)
@@ -55,7 +63,11 @@ private fun FoodScreenPreview() = Theme {
 @Composable
 internal fun FoodScreen(
 	state: FoodUIState,
-	updateNameAction: (name: String) -> Unit,
+	onNameChanged: (name: String) -> Unit,
+	onCaloriesChanged: (kcal: Int) -> Unit,
+	onProtChanged: (grams: Int) -> Unit,
+	onFatChanged: (grams: Int) -> Unit,
+	onCarbsChanged: (grams: Int) -> Unit,
 	onSaveAction: () -> Unit,
 	onCloseAction: () -> Unit,
 ) {
@@ -90,14 +102,14 @@ internal fun FoodScreen(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(padding)
-				.padding(horizontal = 16.dp)
-				.verticalScroll(rememberScrollState())
+				.padding(horizontal = 16.dp, vertical = 16.dp)
+				.verticalScroll(rememberScrollState()),
+			verticalArrangement = Arrangement.spacedBy(16.dp)
 		) {
 			val focusRequester = remember { FocusRequester() }
 			OutlinedTextField(
 				modifier = Modifier
 					.fillMaxWidth()
-					.padding(top = 16.dp)
 					.focusRequester(focusRequester),
 				label = { Text("Name") },
 				singleLine = true,
@@ -109,20 +121,20 @@ internal fun FoodScreen(
 					onSaveAction()
 				}),
 				value = state.name,
-				onValueChange = { updateNameAction(it) }
+				onValueChange = onNameChanged
 			)
 			LaunchedEffect(Unit) { focusRequester.requestFocus() }
 
+			//region Size
 			Row(
-				modifier = Modifier
-					.fillMaxWidth()
-					.padding(top = 24.dp, bottom = 16.dp)
+				modifier = Modifier.fillMaxWidth(),
+				horizontalArrangement = Arrangement.spacedBy(16.dp),
 			) {
 				OutlinedTextField(
 					modifier = Modifier.weight(1f),
 					readOnly = true,
-					singleLine = true,
 					label = { Text("Size") },
+					singleLine = true,
 					value = "100",
 					onValueChange = {}
 				)
@@ -131,9 +143,7 @@ internal fun FoodScreen(
 				var expanded by remember { mutableStateOf(false) }
 				var selectedUnits by remember { mutableStateOf(units[0]) }
 				ExposedDropdownMenuBox(
-					modifier = Modifier
-						.weight(1f)
-						.padding(start = 16.dp),
+					modifier = Modifier.weight(1f),
 					expanded = expanded,
 					onExpandedChange = { expanded = !expanded }
 				) {
@@ -163,6 +173,71 @@ internal fun FoodScreen(
 					}
 				}
 			}
+			//endregion Size
+
+			//region Nutrients
+			OutlinedTextField(
+				modifier = Modifier.fillMaxWidth(),
+				label = { Text(text = "Calories") },
+				suffix = { Text(text = "kcal") },
+				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+				singleLine = true,
+				value = with(state.caloriesKcal.toString()) { TextFieldValue(text = this, TextRange(length)) },
+				onValueChange = {
+					val text = it.text
+					if (text.length >= 7) return@OutlinedTextField
+					onCaloriesChanged(text.toIntOrNull() ?: 0)
+				}
+			)
+
+			Row(
+				modifier = Modifier.fillMaxWidth(),
+				horizontalArrangement = Arrangement.spacedBy(16.dp)
+			) {
+
+				OutlinedTextField(
+					modifier = Modifier.weight(1f),
+					label = { Text("Prot") },
+					suffix = { Text(text = "g") },
+					keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+					singleLine = true,
+					value = with(state.protGrams.toString()) { TextFieldValue(text = this, TextRange(length)) },
+					onValueChange = {
+						val text = it.text
+						if (text.length >= 7) return@OutlinedTextField
+						onProtChanged(text.toIntOrNull() ?: 0)
+					}
+				)
+
+				OutlinedTextField(
+					modifier = Modifier.weight(1f),
+					label = { Text("Fat") },
+					suffix = { Text(text = "g") },
+					keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+					singleLine = true,
+					value = with(state.fatGrams.toString()) { TextFieldValue(text = this, TextRange(length)) },
+					onValueChange = {
+						val text = it.text
+						if (text.length >= 7) return@OutlinedTextField
+						onFatChanged(text.toIntOrNull() ?: 0)
+					}
+				)
+
+				OutlinedTextField(
+					modifier = Modifier.weight(1f),
+					label = { Text("Carbs") },
+					suffix = { Text(text = "g") },
+					keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+					singleLine = true,
+					value = with(state.carbsGrams.toString()) { TextFieldValue(text = this, TextRange(length)) },
+					onValueChange = {
+						val text = it.text
+						if (text.length >= 7) return@OutlinedTextField
+						onCarbsChanged(text.toIntOrNull() ?: 0)
+					}
+				)
+			}
+			//endregion Nutrients
 		}
 	}
 }

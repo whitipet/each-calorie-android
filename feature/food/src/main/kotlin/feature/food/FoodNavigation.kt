@@ -15,7 +15,11 @@ fun NavGraphBuilder.foodScreen(
 	val uiState = vm.uiState.collectAsStateWithLifecycle()
 	FoodScreen(
 		state = uiState.value,
-		updateNameAction = vm::updateName,
+		onNameChanged = vm::updateName,
+		onCaloriesChanged = vm::updateCalories,
+		onProtChanged = vm::updateProt,
+		onFatChanged = vm::updateFat,
+		onCarbsChanged = vm::updateCarbs,
 		onSaveAction = {
 			vm.saveFood()
 			onCloseScreenAction(FoodRoute)
