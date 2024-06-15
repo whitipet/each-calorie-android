@@ -1,10 +1,5 @@
 package feature.food_book
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,46 +38,36 @@ import project.entity.Food
 import project.ui.theme.Theme
 import kotlin.random.Random
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 private fun FoodBookScreenPreview() = Theme {
-	SharedTransitionLayout {
-		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
-			if (!targetState) return@AnimatedContent
-			FoodBookScreen(
-				state = FoodBookUIState(
-					foods = buildList {
-						for (i in 1..20) {
-							add(
-								Food(
-									Random.nextLong(),
-									Random.nextInt().toString(),
-									100,
-									"grams"
-								)
-							)
-						}
-					}
-				),
-				onBackAction = {},
-				onAddAction = {},
-				sharedTransitionScope = this@SharedTransitionLayout,
-				animatedVisibilityScope = this@AnimatedContent,
-			)
-		}
-	}
+	FoodBookScreen(
+		state = FoodBookUIState(
+			foods = buildList {
+				for (i in 1..20) {
+					add(
+						Food(
+							Random.nextLong(),
+							Random.nextInt().toString(),
+							100,
+							"grams"
+						)
+					)
+				}
+			}
+		),
+		onBackAction = {},
+		onAddAction = {},
+	)
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FoodBookScreen(
 	state: FoodBookUIState,
 	onBackAction: () -> Unit,
 	onAddAction: () -> Unit,
-	sharedTransitionScope: SharedTransitionScope,
-	animatedVisibilityScope: AnimatedVisibilityScope,
-) = with(sharedTransitionScope) {
+) {
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
 	Scaffold(
@@ -99,15 +84,7 @@ internal fun FoodBookScreen(
 			)
 		},
 		floatingActionButtonPosition = FabPosition.End,
-		floatingActionButton = {
-			FloatingActionButton(
-				modifier = Modifier.sharedBounds(
-					rememberSharedContentState(key = "bounds"),
-					animatedVisibilityScope = animatedVisibilityScope,
-				),
-				onClick = onAddAction
-			) { Icon(Icons.Rounded.Add, "Add") }
-		}
+		floatingActionButton = { FloatingActionButton(onClick = onAddAction) { Icon(Icons.Rounded.Add, "Add") } }
 	) { padding ->
 		LazyColumn(
 			modifier = Modifier.fillMaxSize(),

@@ -1,10 +1,5 @@
 package feature.food
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,44 +40,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import project.ui.theme.Theme
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun FoodScreenPreview() = Theme {
-	SharedTransitionLayout {
-		AnimatedContent(targetState = true, label = "AnimatedContent") { targetState ->
-			if (!targetState) return@AnimatedContent
-			FoodScreen(
-				state = FoodUIState(),
-				updateNameAction = {},
-				onSaveAction = {},
-				onCloseAction = {},
-				sharedTransitionScope = this@SharedTransitionLayout,
-				animatedVisibilityScope = this@AnimatedContent,
-			)
-		}
-	}
+	FoodScreen(
+		state = FoodUIState(),
+		updateNameAction = {},
+		onSaveAction = {},
+		onCloseAction = {},
+	)
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FoodScreen(
 	state: FoodUIState,
 	updateNameAction: (name: String) -> Unit,
 	onSaveAction: () -> Unit,
 	onCloseAction: () -> Unit,
-	sharedTransitionScope: SharedTransitionScope,
-	animatedVisibilityScope: AnimatedVisibilityScope,
-) = with(sharedTransitionScope) {
+) {
 	val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 	val imeController = LocalSoftwareKeyboardController.current
 	Scaffold(
-		modifier = Modifier
-			.nestedScroll(scrollBehavior.nestedScrollConnection)
-			.sharedBounds(
-				rememberSharedContentState(key = "bounds"),
-				animatedVisibilityScope = animatedVisibilityScope,
-			),
+		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 		topBar = {
 			TopAppBar(
 				navigationIcon = {

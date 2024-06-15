@@ -1,7 +1,5 @@
 package feature.food_book
 
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -11,11 +9,9 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 
 private const val FoodBookRoute = "food_book"
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.foodBookScreen(
 	onCloseScreenAction: (route: String) -> Unit = {},
 	onAddAction: () -> Unit = {},
-	sharedTransitionScope: SharedTransitionScope,
 ) = composable(
 	route = FoodBookRoute,
 	deepLinks = listOf(navDeepLink {
@@ -28,8 +24,6 @@ fun NavGraphBuilder.foodBookScreen(
 		state = uiState.value,
 		onBackAction = { onCloseScreenAction(FoodBookRoute) },
 		onAddAction = onAddAction,
-		sharedTransitionScope = sharedTransitionScope,
-		animatedVisibilityScope = this@composable,
 	)
 }
 

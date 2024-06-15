@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -31,9 +29,8 @@ class AppActivity : ComponentActivity() {
 	}
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun App() = SharedTransitionLayout {
+private fun App() {
 	val navController = rememberNavController()
 	NavHost(
 		navController = navController,
@@ -54,11 +51,9 @@ private fun App() = SharedTransitionLayout {
 		foodBookScreen(
 			onCloseScreenAction = { navController.closeScreen(it) },
 			onAddAction = { navController.showFoodScreen() },
-			sharedTransitionScope = this@SharedTransitionLayout,
 		)
 		foodScreen(
 			onCloseScreenAction = { navController.closeScreen(it) },
-			sharedTransitionScope = this@SharedTransitionLayout,
 		)
 	}
 }
