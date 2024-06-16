@@ -51,13 +51,19 @@ class Repository(
 				name = food.name,
 				size = food.size,
 				units = food.units,
+				caloriesKcal = food.caloriesKcal,
+				protGrams = food.protGrams,
+				fatGrams = food.fatGrams,
+				carbsGrams = food.carbsGrams,
 			)
 		)
 	}
 
-	fun observeFoods(): Flow<List<Food>> =
-		foodDataSource.observeFoods()
-			.map { it.map { f -> Food(f.id, f.name, f.size, f.units) } }
+	fun observeFoods(): Flow<List<Food>> = foodDataSource.observeFoods().map {
+		it.map { f ->
+			Food(f.id, f.name, f.size, f.units, f.caloriesKcal, f.protGrams, f.fatGrams, f.carbsGrams)
+		}
+	}
 	//endregion Food
 
 	//region Consumption

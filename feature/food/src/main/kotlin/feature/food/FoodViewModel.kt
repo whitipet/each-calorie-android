@@ -22,7 +22,17 @@ internal class FoodViewModel(private val repository: Repository) : ViewModel() {
 	fun updateCarbs(grams: Int) = _uiState.update { it.copy(carbsGrams = grams) }
 
 	fun saveFood() = viewModelScope.launch {
-		with(uiState.value) { repository.saveFood(Food(name = name, size = size, units = units)) }
+		repository.saveFood(with(uiState.value) {
+			Food(
+				name = name,
+				size = size,
+				units = units,
+				caloriesKcal = caloriesKcal,
+				protGrams = protGrams,
+				fatGrams = fatGrams,
+				carbsGrams = carbsGrams,
+			)
+		})
 	}
 }
 

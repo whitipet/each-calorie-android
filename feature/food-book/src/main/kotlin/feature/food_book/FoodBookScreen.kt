@@ -50,7 +50,11 @@ private fun FoodBookScreenPreview() = Theme {
 							Random.nextLong(),
 							Random.nextInt().toString(),
 							100,
-							"grams"
+							"grams",
+							Random.nextInt(),
+							Random.nextInt(),
+							Random.nextInt(),
+							Random.nextInt(),
 						)
 					)
 				}
