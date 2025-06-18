@@ -1,0 +1,31 @@
+private def configureProjectAccordingToPlugin(Project project, Plugin plugin) {
+	String pluginName = plugin.class.name
+	if (pluginName.contains("org.gradle.api.plugins")) {
+		if (pluginName.contains("JavaBasePlugin")) applyConfig(project, "pluginJava")
+	} else if (pluginName.contains("org.jetbrains.kotlin.gradle.plugin")) {
+		if (pluginName.contains("KotlinPluginWrapper")) applyConfig(project, "pluginKotlin")
+		else if (pluginName.contains("KotlinAndroidPluginWrapper")) applyConfig(project, "pluginKotlinAndroid")
+	} else if (pluginName.contains("com.android.build.gradle")) {
+		if (pluginName.contains("AndroidBasePlugin")) applyConfig(project, "pluginAndroid")
+		else if (pluginName.contains("com.android.build.gradle.LibraryPlugin")) applyConfig(project, "pluginAndroidLibrary")
+		else if (pluginName.contains("com.android.build.gradle.AppPlugin")) applyConfig(project, "pluginAndroidApp")
+	} else if (pluginName.contains("com.android.build.gradle")) {
+		if (pluginName.contains("AndroidBasePlugin")) applyConfig(project, "pluginAndroid")
+		else if (pluginName.contains("com.android.build.gradle.LibraryPlugin")) applyConfig(project, "pluginAndroidLibrary")
+		else if (pluginName.contains("com.android.build.gradle.AppPlugin")) applyConfig(project, "pluginAndroidApp")
+		else if (pluginName.contains("ComposeCompilerGradle")) applyConfig(project, "pluginAndroidCompose")
+	}
+}
+ext.pluginsDir = "$rootDir/gradle/plugins"
+
+private def applyConfig(Project project, String configFileName) {
+	project.apply from: file("$pluginsDir/${configFileName}.gradle")
+}
+
+project.ext.configureSubprojects = {
+	subprojects {
+		project.plugins.whenPluginAdded { plugin ->
+			configureProjectAccordingToPlugin(project, plugin)
+		}
+	}
+}

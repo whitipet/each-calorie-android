@@ -18,14 +18,13 @@ import feature.home.HomeRoute
 import feature.home.homeScreen
 import feature.set_goal.setGoalDialog
 import feature.set_goal.showSetGoalDialog
-import org.koin.androidx.compose.KoinAndroidContext
 import project.ui.theme.Theme
 
 class AppActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
-		setContent { Theme { KoinAndroidContext { App() } } }
+		setContent { Theme { App() } }
 	}
 }
 

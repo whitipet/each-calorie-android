@@ -2,7 +2,6 @@ android {
 	namespace = project.path.substring(1).replace(":", ".").replace("-", "_")
 
 	compileSdk = config.compileSdkVersion
-	compileSdkExtension = config.compileSdkExtensionVersion
 	buildToolsVersion = config.buildToolsVersion
 
 	defaultConfig {
@@ -10,6 +9,7 @@ android {
 		targetSdk = config.targetSdkVersion
 
 		resourceConfigurations += config.supportedLocales
+		//noinspection ChromeOsAbiSupport
 		ndk.abiFilters = config.availableAbi
 		vectorDrawables.useSupportLibrary = true
 	}

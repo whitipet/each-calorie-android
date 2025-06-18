@@ -1,24 +1,15 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="AndroidLintChromeOsAbiSupport" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintContentDescription" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="AndroidLintDuplicateDefinition" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="AndroidLintGradlePluginVersion" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintIncludeLayoutParam" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AndroidLintKeyboardInaccessibleWidget" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintLongLogTag" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintMissingAutoRevokeTolerance" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="AndroidLintNewApi" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AndroidLintOrientation" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="AndroidLintRtlEnabled" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="AndroidLintRtlSymmetry" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintSetTextI18n" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintSuspicious0dp" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AndroidLintUseCompoundDrawables" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="AndroidLintVectorPath" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="AndroidLintVectorRaster" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="AndroidLintWrongConstant" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="ComposePreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="composableFile" value="true" />
       <option name="previewFile" value="true" />

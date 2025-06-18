@@ -55,7 +55,7 @@ subprojects {
 	}
 }
 
-apply from: file("$rootDir/gradle/plugins/configureSubprojects.gradle")
+apply from: file("$rootDir/gradle/plugins/.configureSubprojects.gradle")
 configureSubprojects()
 
 if (hasProperty("buildScan")) buildScan {
